@@ -78,8 +78,14 @@ const EnquiryForm = () => {
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-foreground">Location</h4>
+                  <h4 className="font-semibold text-foreground">Locations</h4>
                   <p className="text-muted-foreground">Online Classes Available Worldwide</p>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Coimbatore</span>
+                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Bangalore</span>
+                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Chennai</span>
+                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Kochi</span>
+                  </div>
                 </div>
               </div>
             </div>

@@ -19,7 +19,7 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Master Data Skills with{" "}
+            Master In-Demand Tech Skills with{" "}
             <span className="text-white/90">ClassCodex</span>
           </h1>
           
