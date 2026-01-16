@@ -5,6 +5,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const EnquiryForm = () => {
   const { toast } = useToast();
@@ -21,21 +22,29 @@ const EnquiryForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create mailto link for now (backend needed for proper email)
-    const subject = encodeURIComponent(`Course Enquiry: ${formData.course} - ${formData.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCourse: ${formData.course}\n\nMessage:\n${formData.message}`
-    );
-    
-    window.location.href = `mailto:classcodexx@gmail.com?subject=${subject}&body=${body}`;
+    try {
+      const { data, error } = await supabase.functions.invoke("send-enquiry", {
+        body: formData,
+      });
 
-    toast({
-      title: "Opening email client...",
-      description: "Your default email application will open with the enquiry details.",
-    });
+      if (error) throw error;
 
-    setIsSubmitting(false);
-    setFormData({ name: "", email: "", phone: "", course: "", message: "" });
+      toast({
+        title: "Enquiry Submitted!",
+        description: "We'll get back to you within 24 hours. Check your email for confirmation.",
+      });
+
+      setFormData({ name: "", email: "", phone: "", course: "", message: "" });
+    } catch (error: any) {
+      console.error("Error submitting enquiry:", error);
+      toast({
+        title: "Submission Failed",
+        description: "Please try again or contact us directly at classcodexx@gmail.com",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
