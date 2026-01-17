@@ -31,7 +31,7 @@ const courses = [
     title: "Database & SQL",
     description: "Master database fundamentals and SQL queries for data management and analysis.",
     price: 999,
-    duration: "6 Weeks",
+    duration: "8 Hours",
     icon: <Database className="w-7 h-7 text-primary" />,
     syllabus: [
       "Introduction to Databases & RDBMS",
@@ -48,20 +48,17 @@ const courses = [
   {
     title: "Python Programming",
     description: "Learn Python from basics to advanced with focus on data analysis and automation.",
-    price: 1499,
-    duration: "8 Weeks",
+    price: 999,
+    duration: "8 Hours",
     icon: <Code className="w-7 h-7 text-primary" />,
     syllabus: [
-      "Python Basics - Variables, Data Types",
-      "Control Flow & Loops",
-      "Functions & Modules",
-      "Object-Oriented Programming",
-      "File Handling & Exception Handling",
-      "NumPy for Numerical Computing",
-      "Pandas for Data Analysis",
-      "Data Visualization with Matplotlib",
-      "API Integration & Web Scraping",
-      "Capstone Projects",
+      "Module 1: Getting Started - Introduction, Installing Python & PyCharm, Architecture",
+      "Module 2: Python Fundamentals - Variables, Data Types, Operators, Conditionals, Loops",
+      "Module 3: Functions & Logic - Defining Functions, Lambda, Map, Filter, Reduce",
+      "Module 4: Data Structures - Lists, Tuples, Sets, Dictionaries, Slicing",
+      "Module 5: File & Error Handling - Text, CSV, JSON, Exception Handling, Logging",
+      "Module 6: Object-Oriented Programming - Classes, Inheritance, Encapsulation",
+      "Module 7: Data Handling & Mini Project - Pandas, NumPy, MySQL, Report Generation",
     ],
   },
   {
@@ -85,7 +82,7 @@ const courses = [
   {
     title: "Power BI",
     description: "Create stunning dashboards and reports with Microsoft Power BI for business intelligence.",
-    price: 599,
+    price: 999,
     duration: "4 Weeks",
     icon: <BarChart3 className="w-7 h-7 text-primary" />,
     syllabus: [
