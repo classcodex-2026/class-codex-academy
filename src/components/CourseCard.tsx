@@ -100,7 +100,7 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
         )}
         
         {/* CTA */}
-        <Button className="w-full" onClick={scrollToEnquiry} disabled={comingSoon}>
+        <Button className="w-full" onClick={scrollToEnquiry}>
           {comingSoon ? "Notify Me" : "Enroll Now"}
         </Button>
       </div>
