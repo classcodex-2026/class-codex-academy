@@ -78,7 +78,7 @@ const EnquiryForm = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Call Us</h4>
-                  <p className="text-muted-foreground">+91 98765 43210</p>
+                  <p className="text-muted-foreground">+91 94421 50416</p>
                 </div>
               </div>
               
