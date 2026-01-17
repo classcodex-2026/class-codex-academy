@@ -1,4 +1,4 @@
-import { TrendingUp, Users, Award, Briefcase, GraduationCap, Target } from "lucide-react";
+import { TrendingUp, Users, Award, Briefcase, Target } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface MetricCardProps {
@@ -63,23 +63,15 @@ const SuccessMetrics = () => {
   const metrics = [
     {
       icon: <Users className="w-7 h-7 text-white" />,
-      value: 500,
+      value: 150,
       suffix: "+",
       label: "Learners Trained",
       description: "Since November 2024, empowering careers across India",
       color: "from-blue-500 to-blue-600",
     },
     {
-      icon: <GraduationCap className="w-7 h-7 text-white" />,
-      value: 1200,
-      suffix: "+",
-      label: "Skills Upgraded",
-      description: "New skills mastered by our learners",
-      color: "from-purple-500 to-purple-600",
-    },
-    {
       icon: <TrendingUp className="w-7 h-7 text-white" />,
-      value: 45,
+      value: 35,
       suffix: "%",
       label: "Average Salary Hike",
       description: "Reported by placed students",
@@ -87,7 +79,7 @@ const SuccessMetrics = () => {
     },
     {
       icon: <Briefcase className="w-7 h-7 text-white" />,
-      value: 85,
+      value: 78,
       suffix: "%",
       label: "Placement Rate",
       description: "Students placed within 3 months",
@@ -95,7 +87,7 @@ const SuccessMetrics = () => {
     },
     {
       icon: <Award className="w-7 h-7 text-white" />,
-      value: 95,
+      value: 92,
       suffix: "%",
       label: "Course Completion",
       description: "Students who complete their courses",
@@ -103,7 +95,7 @@ const SuccessMetrics = () => {
     },
     {
       icon: <Target className="w-7 h-7 text-white" />,
-      value: 20,
+      value: 12,
       suffix: "+",
       label: "Hiring Partners",
       description: "Companies actively recruiting our students",
