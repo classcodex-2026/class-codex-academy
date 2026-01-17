@@ -1,7 +1,32 @@
 import CourseCard from "./CourseCard";
-import { Database, Code, Snowflake, BarChart3 } from "lucide-react";
+import { Database, Code, Snowflake, BarChart3, Cloud } from "lucide-react";
 
 const courses = [
+  {
+    title: "AWS Data Engineering",
+    description: "Master cloud data engineering with AWS - from foundations to production-ready pipelines.",
+    price: null,
+    duration: "150 Hours",
+    icon: <Cloud className="w-7 h-7 text-primary" />,
+    popular: true,
+    comingSoon: true,
+    syllabus: [
+      "Module 1: Data Engineering Foundations - Role, Lifecycle, ETL vs ELT",
+      "Module 2: SQL Fundamentals to Advanced - JOINs, Window Functions, Performance Tuning",
+      "Module 3: AWS Cloud Fundamentals & IAM - Users, Roles, Policies, CLI Setup",
+      "Module 4: AWS Storage - S3 Buckets, Partitioning, Lifecycle Rules",
+      "Module 5: Compute & Serverless - Lambda, Event-Driven Pipelines, Monitoring",
+      "Module 6: Streaming & Real-Time - Kinesis Data Streams & Firehose",
+      "Module 7: AWS Glue - Crawlers, Catalogs, Serverless ETL, Glue Studio",
+      "Module 8: Redshift Data Warehousing - OLAP, Schema Design, Optimization",
+      "Module 9: Orchestration - Apache Airflow, DAGs, AWS MWAA",
+      "Module 10: Analytics & BI - Athena, QuickSight, BI Integration",
+      "Module 11: Monitoring & Logging - CloudWatch, Alarms, Troubleshooting",
+      "Capstone: End-to-End Batch Pipeline (S3 → Glue → Redshift)",
+      "Capstone: Real-Time Stream Processing with Kinesis & Lambda",
+      "Capstone: Data Warehouse Design + BI Dashboard",
+    ],
+  },
   {
     title: "Database & SQL",
     description: "Master database fundamentals and SQL queries for data management and analysis.",
@@ -26,7 +51,6 @@ const courses = [
     price: 1499,
     duration: "8 Weeks",
     icon: <Code className="w-7 h-7 text-primary" />,
-    popular: true,
     syllabus: [
       "Python Basics - Variables, Data Types",
       "Control Flow & Loops",
