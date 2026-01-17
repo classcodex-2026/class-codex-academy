@@ -30,7 +30,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification email to ClassCodex
     const notificationResponse = await resend.emails.send({
-      from: "ClassCodex <onboarding@resend.dev>",
+      from: "ClassCodex <hello@classcodex.com>",
       to: ["classcodexx@gmail.com"],
       subject: `New Course Enquiry: ${course} - ${name}`,
       html: `
@@ -53,7 +53,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to the student
     const confirmationResponse = await resend.emails.send({
-      from: "ClassCodex <onboarding@resend.dev>",
+      from: "ClassCodex <hello@classcodex.com>",
       to: [email],
       subject: "Thank you for your enquiry - ClassCodex",
       html: `
