@@ -5,14 +5,15 @@ import { useState } from "react";
 interface CourseCardProps {
   title: string;
   description: string;
-  price: number;
+  price: number | null;
   duration: string;
   syllabus: string[];
   icon: React.ReactNode;
   popular?: boolean;
+  comingSoon?: boolean;
 }
 
-const CourseCard = ({ title, description, price, duration, syllabus, icon, popular }: CourseCardProps) => {
+const CourseCard = ({ title, description, price, duration, syllabus, icon, popular, comingSoon }: CourseCardProps) => {
   const [showSyllabus, setShowSyllabus] = useState(false);
 
   const scrollToEnquiry = () => {
@@ -22,9 +23,14 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
 
   return (
     <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden ${popular ? 'ring-2 ring-primary' : ''}`}>
-      {popular && (
+      {popular && !comingSoon && (
         <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
           Most Popular
+        </div>
+      )}
+      {comingSoon && (
+        <div className="absolute top-4 right-4 bg-amber-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+          Coming Soon
         </div>
       )}
       
@@ -52,8 +58,14 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
         
         {/* Price */}
         <div className="mb-4">
-          <span className="text-3xl font-bold text-foreground">₹{price.toLocaleString()}</span>
-          <span className="text-muted-foreground text-sm ml-1">/ course</span>
+          {comingSoon ? (
+            <span className="text-2xl font-bold text-amber-500">Coming Soon</span>
+          ) : (
+            <>
+              <span className="text-3xl font-bold text-foreground">₹{price?.toLocaleString()}</span>
+              <span className="text-muted-foreground text-sm ml-1">/ course</span>
+            </>
+          )}
         </div>
         
         {/* Syllabus Toggle */}
@@ -88,8 +100,8 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
         )}
         
         {/* CTA */}
-        <Button className="w-full" onClick={scrollToEnquiry}>
-          Enroll Now
+        <Button className="w-full" onClick={scrollToEnquiry} disabled={comingSoon}>
+          {comingSoon ? "Notify Me" : "Enroll Now"}
         </Button>
       </div>
     </div>
