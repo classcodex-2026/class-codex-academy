@@ -12,7 +12,7 @@ const AnnouncementBanner = () => {
   };
 
   return (
-    <div className="bg-red-600 text-white py-2.5 relative overflow-hidden">
+    <div className="bg-red-600 text-white py-2.5 relative overflow-hidden z-[60]">
       <div className="container mx-auto px-4 flex items-center justify-center gap-4">
         <div className="flex items-center gap-2 animate-marquee whitespace-nowrap">
           <Sparkles className="w-4 h-4" />
