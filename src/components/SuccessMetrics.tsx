@@ -63,7 +63,7 @@ const SuccessMetrics = () => {
   const metrics = [
     {
       icon: <Users className="w-7 h-7 text-white" />,
-      value: 150,
+      value: 500,
       suffix: "+",
       label: "Learners Trained",
       description: "Since November 2024, empowering careers across India",

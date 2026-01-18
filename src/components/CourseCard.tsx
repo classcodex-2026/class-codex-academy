@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check, Clock, BookOpen } from "lucide-react";
 import { useState } from "react";
+import EnquiryDialog from "./EnquiryDialog";
 
 interface CourseCardProps {
   title: string;
@@ -15,11 +16,7 @@ interface CourseCardProps {
 
 const CourseCard = ({ title, description, price, duration, syllabus, icon, popular, comingSoon }: CourseCardProps) => {
   const [showSyllabus, setShowSyllabus] = useState(false);
-
-  const scrollToEnquiry = () => {
-    const element = document.getElementById("enquiry");
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden ${popular ? 'ring-2 ring-primary' : ''}`}>
@@ -100,10 +97,17 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
         )}
         
         {/* CTA */}
-        <Button className="w-full" onClick={scrollToEnquiry}>
+        <Button className="w-full" onClick={() => setDialogOpen(true)}>
           {comingSoon ? "Notify Me" : "Enroll Now"}
         </Button>
       </div>
+
+      <EnquiryDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        courseName={title}
+        isNotify={comingSoon}
+      />
     </div>
   );
 };
