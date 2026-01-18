@@ -32,12 +32,6 @@ const Navbar = () => {
               Courses
             </button>
             <button
-              onClick={() => scrollToSection("pricing")}
-              className="text-muted-foreground hover:text-primary transition-colors font-medium"
-            >
-              Pricing
-            </button>
-            <button
               onClick={() => scrollToSection("enquiry")}
               className="text-muted-foreground hover:text-primary transition-colors font-medium"
             >
@@ -66,12 +60,6 @@ const Navbar = () => {
                 className="text-muted-foreground hover:text-primary transition-colors font-medium text-left"
               >
                 Courses
-              </button>
-              <button
-                onClick={() => scrollToSection("pricing")}
-                className="text-muted-foreground hover:text-primary transition-colors font-medium text-left"
-              >
-                Pricing
               </button>
               <button
                 onClick={() => scrollToSection("enquiry")}
