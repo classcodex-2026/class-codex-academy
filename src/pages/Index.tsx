@@ -1,3 +1,4 @@
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Courses from "@/components/Courses";
@@ -8,6 +9,7 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <AnnouncementBanner />
       <Navbar />
       <Hero />
       <SuccessMetrics />
