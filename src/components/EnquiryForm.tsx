@@ -102,7 +102,7 @@ const EnquiryForm = () => {
           
           {/* Form Section */}
           <div className="bg-card rounded-2xl card-shadow p-8">
-            <h3 className="text-xl font-bold text-foreground mb-6">Student Enquiry Form</h3>
+            <h3 className="text-xl font-bold text-foreground mb-6">Enquiry Form</h3>
             
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
