@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Trophy } from "lucide-react";
-import heroTechCloud from "@/assets/hero-tech-cloud.png";
+import { ArrowRight, BookOpen, Users, Award } from "lucide-react";
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -9,76 +8,66 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-[90vh] hero-gradient overflow-hidden">
+    <section className="relative min-h-[90vh] hero-gradient">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMCAyMmMtNS41MjMgMC0xMC00LjQ3Ny0xMC0xMHM0LjQ3Ny0xMCAxMC0xMCAxMCA0LjQ3NyAxMCAxMC00LjQ3NyAxMC0xMCAxMHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
       
-      <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Content */}
-          <div className="text-left">
-            <div className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-primary/20">
-              <Trophy className="w-4 h-4 text-yellow-400" />
-              <span className="text-white/90 text-sm font-medium">A Guiding Platform for Aspiring Data Professionals</span>
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Grow Your Data Skills With Our{" "}
-              <span className="text-primary">Affordable</span>{" "}
-              Courses
-            </h1>
-            
-            <div className="flex items-center gap-4 mb-8">
-              <div className="flex -space-x-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold">A</div>
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold">R</div>
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-white flex items-center justify-center text-white text-xs font-bold">S</div>
-              </div>
-              <div>
-                <p className="text-white font-semibold">Join Achievers Castle</p>
-                <p className="text-white/70 text-sm">Who have successfully cracked their dream jobs</p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                variant="hero" 
-                size="lg"
-                onClick={() => scrollToSection("courses")}
-              >
-                Explore Courses
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-              <Button 
-                variant="heroOutline" 
-                size="lg"
-                onClick={() => scrollToSection("enquiry")}
-              >
-                Request a Callback
-              </Button>
-            </div>
+      <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+        <div className="max-w-3xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span className="text-white/90 text-sm font-medium">Now Enrolling for 2026 Batches</span>
           </div>
           
-          {/* Right Content - Tech Cloud Image */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-lg lg:max-w-xl">
-              <img 
-                src={heroTechCloud} 
-                alt="Data Science and Tech Tools Word Cloud" 
-                className="w-full h-auto drop-shadow-2xl animate-float"
-              />
-              {/* Floating icons around the image */}
-              <div className="absolute -top-4 left-10 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center animate-bounce-slow">
-                <span className="text-2xl">🐍</span>
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Master In-Demand Tech Skills with{" "}
+            <span className="text-white/90">ClassCodex</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            Learn industry-relevant technologies like SQL, Python, Snowflake, and Power BI 
+            from expert instructors. Start your data career today.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button 
+              variant="hero" 
+              size="lg"
+              onClick={() => scrollToSection("courses")}
+            >
+              Explore Courses
+              <ArrowRight className="w-5 h-5" />
+            </Button>
+            <Button 
+              variant="heroOutline" 
+              size="lg"
+              onClick={() => scrollToSection("enquiry")}
+            >
+              Get Free Consultation
+            </Button>
+          </div>
+          
+          {/* Stats */}
+          <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <BookOpen className="w-5 h-5 text-white/80" />
               </div>
-              <div className="absolute top-1/4 -right-4 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center animate-bounce-slow delay-100">
-                <span className="text-2xl">📊</span>
+              <div className="text-2xl md:text-3xl font-bold text-white">4+</div>
+              <div className="text-white/70 text-sm">Courses</div>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Users className="w-5 h-5 text-white/80" />
               </div>
-              <div className="absolute bottom-1/4 -left-4 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center animate-bounce-slow delay-200">
-                <span className="text-2xl">❄️</span>
+              <div className="text-2xl md:text-3xl font-bold text-white">500+</div>
+              <div className="text-white/70 text-sm">Students</div>
+            </div>
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Award className="w-5 h-5 text-white/80" />
               </div>
-              <div className="absolute -bottom-4 right-10 w-12 h-12 bg-white rounded-xl shadow-lg flex items-center justify-center animate-bounce-slow delay-300">
-                <span className="text-2xl">🤖</span>
-              </div>
+              <div className="text-2xl md:text-3xl font-bold text-white">95%</div>
+              <div className="text-white/70 text-sm">Success Rate</div>
             </div>
           </div>
         </div>
