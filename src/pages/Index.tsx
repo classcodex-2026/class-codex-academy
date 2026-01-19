@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Courses from "@/components/Courses";
 import SuccessMetrics from "@/components/SuccessMetrics";
+import WhyClassCodex from "@/components/WhyClassCodex";
 import EnquiryForm from "@/components/EnquiryForm";
 import Footer from "@/components/Footer";
 
@@ -14,6 +15,7 @@ const Index = () => {
       <Hero />
       <SuccessMetrics />
       <Courses />
+      <WhyClassCodex />
       <EnquiryForm />
       <Footer />
     </div>
