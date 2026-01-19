@@ -1,7 +1,6 @@
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import WhyClassCodex from "@/components/WhyClassCodex";
 import Courses from "@/components/Courses";
 import SuccessMetrics from "@/components/SuccessMetrics";
 import EnquiryForm from "@/components/EnquiryForm";
@@ -13,7 +12,6 @@ const Index = () => {
       <AnnouncementBanner />
       <Navbar />
       <Hero />
-      <WhyClassCodex />
       <SuccessMetrics />
       <Courses />
       <EnquiryForm />
