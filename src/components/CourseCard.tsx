@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check, Clock, BookOpen } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import EnquiryDialog from "./EnquiryDialog";
 
 interface CourseCardProps {
@@ -18,6 +19,15 @@ interface CourseCardProps {
 const CourseCard = ({ title, description, price, originalPrice, duration, syllabus, icon, popular, comingSoon }: CourseCardProps) => {
   const [showSyllabus, setShowSyllabus] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (title === "Python Programming") {
+      navigate("/course/python");
+    }
+  };
+
+  const hasCourseDetail = title === "Python Programming";
 
   return (
     <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden`}>
@@ -39,7 +49,13 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         </div>
         
         {/* Title & Description */}
-        <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
+        <h3 
+          className={`text-xl font-bold text-foreground mb-2 ${hasCourseDetail ? 'cursor-pointer hover:text-primary transition-colors' : ''}`}
+          onClick={hasCourseDetail ? handleCardClick : undefined}
+        >
+          {title}
+          {hasCourseDetail && <span className="text-xs text-primary ml-2">(View Details)</span>}
+        </h3>
         <p className="text-muted-foreground text-sm mb-4">{description}</p>
         
         {/* Meta */}
