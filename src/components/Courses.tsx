@@ -6,9 +6,10 @@ const courses = [
     title: "AWS Data Engineering",
     description: "Master cloud data engineering with AWS - from foundations to production-ready pipelines.",
     price: null,
+    originalPrice: null,
     duration: "150 Hours",
     icon: <Cloud className="w-7 h-7 text-primary" />,
-    popular: true,
+    popular: false,
     comingSoon: true,
     syllabus: [
       "Module 1: Data Engineering Foundations - Role, Lifecycle, ETL vs ELT",
@@ -31,6 +32,7 @@ const courses = [
     title: "Database & SQL",
     description: "Master database fundamentals and SQL queries for data management and analysis.",
     price: 999,
+    originalPrice: 3999,
     duration: "8 Hours",
     icon: <Database className="w-7 h-7 text-primary" />,
     syllabus: [
@@ -49,6 +51,7 @@ const courses = [
     title: "Python Programming",
     description: "Learn Python from basics to advanced with focus on data analysis and automation.",
     price: 999,
+    originalPrice: 4999,
     duration: "8 Hours",
     icon: <Code className="w-7 h-7 text-primary" />,
     syllabus: [
@@ -65,6 +68,7 @@ const courses = [
     title: "Snowflake",
     description: "Cloud data warehousing with Snowflake - from basics to advanced analytics.",
     price: 2999,
+    originalPrice: 8000,
     duration: "6 Weeks",
     icon: <Snowflake className="w-7 h-7 text-primary" />,
     syllabus: [
@@ -83,6 +87,7 @@ const courses = [
     title: "Power BI",
     description: "Create stunning dashboards and reports with Microsoft Power BI for business intelligence.",
     price: 999,
+    originalPrice: 3999,
     duration: "4 Weeks",
     icon: <BarChart3 className="w-7 h-7 text-primary" />,
     syllabus: [
