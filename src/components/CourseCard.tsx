@@ -49,13 +49,7 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         </div>
         
         {/* Title & Description */}
-        <h3 
-          className={`text-xl font-bold text-foreground mb-2 ${hasCourseDetail ? 'cursor-pointer hover:text-primary transition-colors' : ''}`}
-          onClick={hasCourseDetail ? handleCardClick : undefined}
-        >
-          {title}
-          {hasCourseDetail && <span className="text-xs text-primary ml-2">(View Details)</span>}
-        </h3>
+        <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
         <p className="text-muted-foreground text-sm mb-4">{description}</p>
         
         {/* Meta */}
@@ -85,35 +79,50 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
           )}
         </div>
         
-        {/* Syllabus Toggle */}
-        <button
-          onClick={() => setShowSyllabus(!showSyllabus)}
-          className="text-primary text-sm font-medium hover:underline mb-4 flex items-center gap-1"
-        >
-          {showSyllabus ? "Hide Syllabus" : "View Syllabus"}
-          <svg 
-            className={`w-4 h-4 transition-transform ${showSyllabus ? 'rotate-180' : ''}`} 
-            fill="none" 
-            viewBox="0 0 24 24" 
-            stroke="currentColor"
+        {/* View Details Button - Only for courses with detail pages */}
+        {hasCourseDetail && (
+          <Button 
+            variant="outline" 
+            className="w-full mb-3" 
+            onClick={handleCardClick}
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
+            View Details
+          </Button>
+        )}
         
-        {/* Syllabus List */}
-        {showSyllabus && (
-          <div className="mb-4 p-4 bg-muted rounded-lg">
-            <h4 className="font-semibold text-sm text-foreground mb-3">Course Syllabus</h4>
-            <ul className="space-y-2">
-              {syllabus.map((item, index) => (
-                <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Syllabus Toggle - Only for courses without detail pages */}
+        {!hasCourseDetail && (
+          <>
+            <button
+              onClick={() => setShowSyllabus(!showSyllabus)}
+              className="text-primary text-sm font-medium hover:underline mb-4 flex items-center gap-1"
+            >
+              {showSyllabus ? "Hide Syllabus" : "View Syllabus"}
+              <svg 
+                className={`w-4 h-4 transition-transform ${showSyllabus ? 'rotate-180' : ''}`} 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            
+            {/* Syllabus List */}
+            {showSyllabus && (
+              <div className="mb-4 p-4 bg-muted rounded-lg">
+                <h4 className="font-semibold text-sm text-foreground mb-3">Course Syllabus</h4>
+                <ul className="space-y-2">
+                  {syllabus.map((item, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </>
         )}
         
         {/* CTA */}
