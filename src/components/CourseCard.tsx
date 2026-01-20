@@ -7,6 +7,7 @@ interface CourseCardProps {
   title: string;
   description: string;
   price: number | null;
+  originalPrice?: number | null;
   duration: string;
   syllabus: string[];
   icon: React.ReactNode;
@@ -14,12 +15,12 @@ interface CourseCardProps {
   comingSoon?: boolean;
 }
 
-const CourseCard = ({ title, description, price, duration, syllabus, icon, popular, comingSoon }: CourseCardProps) => {
+const CourseCard = ({ title, description, price, originalPrice, duration, syllabus, icon, popular, comingSoon }: CourseCardProps) => {
   const [showSyllabus, setShowSyllabus] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
-    <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden ${popular ? 'ring-2 ring-primary' : ''}`}>
+    <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden`}>
       {popular && !comingSoon && (
         <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
           Most Popular
@@ -58,10 +59,13 @@ const CourseCard = ({ title, description, price, duration, syllabus, icon, popul
           {comingSoon ? (
             <span className="text-2xl font-bold text-amber-500">Coming Soon</span>
           ) : (
-            <>
+            <div className="flex items-center gap-2 flex-wrap">
+              {originalPrice && (
+                <span className="text-lg text-muted-foreground line-through">₹{originalPrice.toLocaleString()}</span>
+              )}
               <span className="text-3xl font-bold text-foreground">₹{price?.toLocaleString()}</span>
-              <span className="text-muted-foreground text-sm ml-1">/ course</span>
-            </>
+              <span className="text-muted-foreground text-sm">/ course</span>
+            </div>
           )}
         </div>
         
