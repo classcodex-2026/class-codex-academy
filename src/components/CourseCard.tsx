@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Clock, BookOpen } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import EnquiryDialog from "./EnquiryDialog";
 
 interface CourseCardProps {
@@ -30,23 +31,43 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
   const hasCourseDetail = title === "Python Programming";
 
   return (
-    <div className={`relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden`}>
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="relative bg-card rounded-2xl card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden border border-primary/10 hover:border-primary/30 h-full flex flex-col"
+    >
+      {/* Glow effect on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
+      
       {popular && !comingSoon && (
-        <div className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="absolute top-4 right-4 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full"
+        >
           Most Popular
-        </div>
+        </motion.div>
       )}
       {comingSoon && (
-        <div className="absolute top-4 right-4 bg-amber-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          className="absolute top-4 right-4 bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-semibold px-3 py-1 rounded-full"
+        >
           Coming Soon
-        </div>
+        </motion.div>
       )}
       
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-1 relative z-10">
         {/* Icon */}
-        <div className="w-14 h-14 rounded-xl bg-accent flex items-center justify-center mb-4">
+        <motion.div
+          className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mb-4"
+          whileHover={{ 
+            boxShadow: "0 0 25px hsl(180 100% 50% / 0.3)",
+            borderColor: "hsl(180 100% 50% / 0.5)"
+          }}
+        >
           {icon}
-        </div>
+        </motion.div>
         
         {/* Title & Description */}
         <h3 className="text-xl font-bold text-foreground mb-2">{title}</h3>
@@ -55,11 +76,11 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         {/* Meta */}
         <div className="flex items-center gap-4 mb-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4 text-primary" />
             <span>{duration}</span>
           </div>
           <div className="flex items-center gap-1">
-            <BookOpen className="w-4 h-4" />
+            <BookOpen className="w-4 h-4 text-primary" />
             <span>{syllabus.length} Modules</span>
           </div>
         </div>
@@ -67,13 +88,13 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         {/* Price */}
         <div className="mb-4">
           {comingSoon ? (
-            <span className="text-2xl font-bold text-amber-500">Coming Soon</span>
+            <span className="text-2xl font-bold text-amber-400">Coming Soon</span>
           ) : (
             <div className="flex items-center gap-2 flex-wrap">
               {originalPrice && (
                 <span className="text-lg text-muted-foreground line-through">₹{originalPrice.toLocaleString()}</span>
               )}
-              <span className="text-3xl font-bold text-foreground">₹{price?.toLocaleString()}</span>
+              <span className="text-3xl font-bold text-primary">₹{price?.toLocaleString()}</span>
               <span className="text-muted-foreground text-sm">/ course</span>
             </div>
           )}
@@ -83,7 +104,7 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         {hasCourseDetail && (
           <Button 
             variant="outline" 
-            className="w-full mb-3" 
+            className="w-full mb-3 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary" 
             onClick={handleCardClick}
           >
             View Details
@@ -110,7 +131,12 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
             
             {/* Syllabus List */}
             {showSyllabus && (
-              <div className="mb-4 p-4 bg-muted rounded-lg">
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                className="mb-4 p-4 bg-muted/50 rounded-lg border border-primary/10"
+              >
                 <h4 className="font-semibold text-sm text-foreground mb-3">Course Syllabus</h4>
                 <ul className="space-y-2">
                   {syllabus.map((item, index) => (
@@ -120,15 +146,20 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             )}
           </>
         )}
         
-        {/* CTA */}
-        <Button className="w-full" onClick={() => setDialogOpen(true)}>
-          {comingSoon ? "Notify Me" : "Enroll Now"}
-        </Button>
+        {/* CTA - Push to bottom */}
+        <div className="mt-auto">
+          <Button 
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-button" 
+            onClick={() => setDialogOpen(true)}
+          >
+            {comingSoon ? "Notify Me" : "Enroll Now"}
+          </Button>
+        </div>
       </div>
 
       <EnquiryDialog
@@ -137,7 +168,7 @@ const CourseCard = ({ title, description, price, originalPrice, duration, syllab
         courseName={title}
         isNotify={comingSoon}
       />
-    </div>
+    </motion.div>
   );
 };
 
