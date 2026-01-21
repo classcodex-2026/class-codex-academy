@@ -4,8 +4,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { motion } from "framer-motion";
 
 const EnquiryForm = () => {
   const { toast } = useToast();
@@ -48,61 +49,94 @@ const EnquiryForm = () => {
   };
 
   return (
-    <section id="enquiry" className="py-20 section-bg">
-      <div className="container mx-auto px-4">
+    <section id="enquiry" className="py-20 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 circuit-pattern opacity-20" />
+      <motion.div
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[200px]"
+        animate={{ opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 8, repeat: Infinity }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Info Section */}
-          <div>
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">Get in Touch</span>
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <span className="text-primary font-semibold text-sm uppercase tracking-wider flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Get in Touch
+            </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
-              Start Your Learning Journey
+              Start Your{" "}
+              <span className="text-gradient">Learning Journey</span>
             </h2>
             <p className="text-muted-foreground mb-8">
               Have questions about our courses? Fill out the form and our team will get back to you within 24 hours.
             </p>
             
             <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground">Email Us</h4>
-                  <p className="text-muted-foreground">classcodexx@gmail.com</p>
-                </div>
-              </div>
+              {[
+                { icon: Mail, title: "Email Us", info: "classcodexx@gmail.com" },
+                { icon: Phone, title: "Call Us", info: "+91 94421 50416" },
+              ].map((item, index) => (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="flex items-start gap-4 group"
+                >
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:border-primary/50 group-hover:shadow-[0_0_20px_hsl(180_100%_50%_/_0.2)] transition-all">
+                    <item.icon className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-foreground">{item.title}</h4>
+                    <p className="text-muted-foreground">{item.info}</p>
+                  </div>
+                </motion.div>
+              ))}
               
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
-                  <Phone className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-foreground">Call Us</h4>
-                  <p className="text-muted-foreground">+91 94421 50416</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-accent flex items-center justify-center flex-shrink-0">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="flex items-start gap-4 group"
+              >
+                <div className="w-12 h-12 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0 group-hover:border-primary/50 group-hover:shadow-[0_0_20px_hsl(180_100%_50%_/_0.2)] transition-all">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <h4 className="font-semibold text-foreground">Locations</h4>
                   <p className="text-muted-foreground">Online Classes Available Worldwide</p>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Coimbatore</span>
-                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Bangalore</span>
-                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Chennai</span>
-                    <span className="text-xs bg-accent text-primary px-2 py-1 rounded-full">Kochi</span>
+                    {["Coimbatore", "Bangalore", "Chennai", "Kochi"].map((city) => (
+                      <span key={city} className="text-xs bg-primary/10 text-primary border border-primary/20 px-2 py-1 rounded-full">
+                        {city}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
           
           {/* Form Section */}
-          <div className="bg-card rounded-2xl card-shadow p-8">
-            <h3 className="text-xl font-bold text-foreground mb-6">Enquiry Form</h3>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="bg-card rounded-2xl p-8 border border-primary/10 card-shadow"
+          >
+            <h3 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <Zap className="w-5 h-5 text-primary" />
+              Enquiry Form
+            </h3>
             
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
@@ -115,6 +149,7 @@ const EnquiryForm = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   maxLength={100}
+                  className="bg-muted/50 border-primary/20 focus:border-primary focus:ring-primary"
                 />
               </div>
               
@@ -129,6 +164,7 @@ const EnquiryForm = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   maxLength={255}
+                  className="bg-muted/50 border-primary/20 focus:border-primary focus:ring-primary"
                 />
               </div>
               
@@ -143,6 +179,7 @@ const EnquiryForm = () => {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   maxLength={15}
+                  className="bg-muted/50 border-primary/20 focus:border-primary focus:ring-primary"
                 />
               </div>
               
@@ -155,14 +192,14 @@ const EnquiryForm = () => {
                   value={formData.course}
                   onValueChange={(value) => setFormData({ ...formData, course: value })}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-muted/50 border-primary/20 focus:border-primary focus:ring-primary">
                     <SelectValue placeholder="Choose a course" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-card border-primary/20">
                     <SelectItem value="Database & SQL">Database & SQL - ₹999</SelectItem>
-                    <SelectItem value="Python Programming">Python Programming - ₹1,499</SelectItem>
+                    <SelectItem value="Python Programming">Python Programming - ₹999</SelectItem>
                     <SelectItem value="Snowflake">Snowflake - ₹2,999</SelectItem>
-                    <SelectItem value="Power BI">Power BI - ₹599</SelectItem>
+                    <SelectItem value="Power BI">Power BI - ₹999</SelectItem>
                     <SelectItem value="Multiple Courses">Multiple Courses</SelectItem>
                   </SelectContent>
                 </Select>
@@ -178,10 +215,11 @@ const EnquiryForm = () => {
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={4}
                   maxLength={1000}
+                  className="bg-muted/50 border-primary/20 focus:border-primary focus:ring-primary"
                 />
               </div>
               
-              <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+              <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90 glow-button" size="lg" disabled={isSubmitting}>
                 <Send className="w-4 h-4" />
                 {isSubmitting ? "Submitting..." : "Submit Enquiry"}
               </Button>
@@ -190,7 +228,7 @@ const EnquiryForm = () => {
                 By submitting this form, you agree to be contacted regarding your enquiry.
               </p>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,5 +1,6 @@
 import CourseCard from "./CourseCard";
 import { Database, Code, Snowflake, BarChart3, Cloud } from "lucide-react";
+import { motion } from "framer-motion";
 
 const courses = [
   {
@@ -106,21 +107,43 @@ const courses = [
 
 const Courses = () => {
   return (
-    <section id="courses" className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+    <section id="courses" className="py-20 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 grid-pattern opacity-30" />
+      <motion.div
+        className="absolute top-1/2 left-0 w-96 h-96 rounded-full bg-primary/10 blur-[150px]"
+        animate={{ x: [-50, 50, -50], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 15, repeat: Infinity }}
+      />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Courses</span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
-            Industry-Ready Curriculum
+            Industry-Ready{" "}
+            <span className="text-gradient">Curriculum</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Choose from our carefully designed courses to build skills that employers are looking for.
           </p>
-        </div>
+        </motion.div>
         
-        <div id="pricing" className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {courses.map((course) => (
-            <CourseCard key={course.title} {...course} />
+        <div id="pricing" className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          {courses.map((course, index) => (
+            <motion.div
+              key={course.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <CourseCard {...course} />
+            </motion.div>
           ))}
         </div>
       </div>
