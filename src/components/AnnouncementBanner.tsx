@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { X, Sparkles, Zap } from "lucide-react";
+import { X, Sparkles, Zap, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AnnouncementBanner = () => {
@@ -7,10 +7,7 @@ const AnnouncementBanner = () => {
 
   if (!isVisible) return null;
 
-  const scrollToEnquiry = () => {
-    const element = document.getElementById("enquiry");
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  const waLink = "https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches.";
 
   return (
     <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 text-foreground py-2.5 relative overflow-hidden z-[60] border-b border-primary/20">
@@ -28,12 +25,15 @@ const AnnouncementBanner = () => {
             <span className="text-sm font-medium">
               First time here? Get <span className="font-bold text-primary">20% OFF</span> as a new user on any course
             </span>
-            <button
-              onClick={scrollToEnquiry}
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-4 text-sm font-semibold text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
             >
+              <MessageCircle className="w-4 h-4" />
               Enroll Now 🚀 →
-            </button>
+            </a>
           </div>
         ))}
       </div>

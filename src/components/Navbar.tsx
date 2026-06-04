@@ -152,11 +152,17 @@ const Navbar = () => {
               Login
             </Button>
             <Button
-              onClick={scrollToEnquiry}
+              asChild
               size="sm"
               className="ml-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
             >
-              Enroll
+              <a
+                href="https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Enroll
+              </a>
             </Button>
           </div>
 
@@ -228,10 +234,16 @@ const Navbar = () => {
                   Login
                 </Button>
                 <Button
-                  onClick={scrollToEnquiry}
+                  asChild
                   className="mt-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
-                  Enroll
+                  <a
+                    href="https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches."
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Enroll
+                  </a>
                 </Button>
               </div>
             </motion.div>
