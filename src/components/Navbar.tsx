@@ -152,11 +152,11 @@ const Navbar = () => {
               Login
             </Button>
             <Button
-              onClick={() => go("/consultation")}
+              onClick={scrollToEnquiry}
               size="sm"
-              className="ml-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20"
+              className="ml-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
             >
-              Book Free Consultation
+              Enroll
             </Button>
           </div>
 
@@ -228,10 +228,10 @@ const Navbar = () => {
                   Login
                 </Button>
                 <Button
-                  onClick={() => go("/consultation")}
-                  className="mt-1 w-full bg-emerald-500 hover:bg-emerald-600 text-white"
+                  onClick={scrollToEnquiry}
+                  className="mt-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
-                  Book Free Consultation
+                  Enroll
                 </Button>
               </div>
             </motion.div>
