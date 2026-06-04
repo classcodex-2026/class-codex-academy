@@ -25,12 +25,15 @@ const AnnouncementBanner = () => {
             <span className="text-sm font-medium">
               First time here? Get <span className="font-bold text-primary">20% OFF</span> as a new user on any course
             </span>
-            <button
-              onClick={scrollToEnquiry}
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-4 text-sm font-semibold text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
             >
+              <MessageCircle className="w-4 h-4" />
               Enroll Now 🚀 →
-            </button>
+            </a>
           </div>
         ))}
       </div>
