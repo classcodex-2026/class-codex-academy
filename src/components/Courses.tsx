@@ -9,7 +9,7 @@ import { getCourseIcon } from "@/lib/courseIcons";
 const Courses = () => {
   const navigate = useNavigate();
   // Show a curated subset on the homepage (one flagship per category) for a clean grid
-  const featuredSlugs = ["python", "snowflake", "sql-analytics", "ml-fundamentals", "ethical-hacking", "de-projects"];
+  const featuredSlugs = ["python", "sql", "snowflake", "power-bi", "data-analytics-projects", "data-science"];
   const all = getAllCourses();
   const featured = featuredSlugs
     .map((s) => all.find((c) => c.slug === s))
@@ -38,7 +38,7 @@ const Courses = () => {
             Industry-Ready <span className="text-gradient">Curriculum</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore featured courses across Python, Data Engineering, Analytics, Data Science and Cyber Security.
+            Explore featured courses across Python, Data Engineering, Data Analytics and Data Science.
           </p>
         </motion.div>
 

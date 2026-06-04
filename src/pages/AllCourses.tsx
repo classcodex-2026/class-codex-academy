@@ -21,7 +21,7 @@ const AllCourses = () => {
               All Courses
             </h1>
             <p className="text-muted-foreground text-lg">
-              Browse every course across Python, Data Engineering, Analytics, Data Science and Cyber Security.
+              Browse every course across Python, Data Engineering, Data Analytics and Data Science.
             </p>
           </motion.div>
         </div>

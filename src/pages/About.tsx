@@ -43,7 +43,7 @@ const About = () => {
             </h1>
             <p className="text-muted-foreground text-lg">
               ClassCodex is a modern edtech platform built to help learners launch and accelerate
-              careers in Python, Data, AI and Cyber Security through practical, project-led training.
+              careers in Python, Data Engineering, Data Analytics and Data Science through practical, project-led training.
             </p>
           </motion.div>
         </div>

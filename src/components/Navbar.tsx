@@ -1,8 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X, LogIn } from "lucide-react";
+import { GraduationCap, Menu, X, LogIn, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavItem {
   label: string;
@@ -11,20 +18,29 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { label: "Home", path: "/" },
-  { label: "Courses", path: "/courses" },
   { label: "Webinars", path: "/webinar" },
   { label: "About Us", path: "/about" },
   { label: "Contact Us", path: "/contact" },
 ];
 
+const coursesMenu = [
+  { label: "Python Programming", path: "/category/python-programming" },
+  { label: "Data Engineering", path: "/category/data-engineering" },
+  { label: "Data Analytics", path: "/category/data-analytics" },
+  { label: "Data Science", path: "/category/data-science" },
+  { label: "All Courses", path: "/courses" },
+];
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const go = (path: string) => {
     navigate(path);
     setIsOpen(false);
+    setMobileCoursesOpen(false);
   };
 
   const scrollToEnquiry = () => {
@@ -38,6 +54,11 @@ const Navbar = () => {
     }
     setIsOpen(false);
   };
+
+  const isCoursesActive =
+    location.pathname.startsWith("/courses") ||
+    location.pathname.startsWith("/category/") ||
+    location.pathname.startsWith("/course/");
 
   return (
     <motion.nav
@@ -69,7 +90,46 @@ const Navbar = () => {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 xl:gap-2 justify-end">
-            {navItems.map((item) => (
+            <button
+              onClick={() => go("/")}
+              className={`px-3 py-2 text-sm font-medium transition-colors ${
+                location.pathname === "/" ? "text-primary" : "text-muted-foreground hover:text-primary"
+              }`}
+            >
+              Home
+            </button>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className={`px-3 py-2 text-sm font-medium transition-colors inline-flex items-center gap-1 ${
+                    isCoursesActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  }`}
+                >
+                  Courses <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-card border-primary/20 min-w-[220px]">
+                {coursesMenu.slice(0, 4).map((c) => (
+                  <DropdownMenuItem
+                    key={c.path}
+                    onClick={() => go(c.path)}
+                    className="cursor-pointer focus:bg-primary/10 focus:text-primary"
+                  >
+                    {c.label}
+                  </DropdownMenuItem>
+                ))}
+                <DropdownMenuSeparator className="bg-primary/10" />
+                <DropdownMenuItem
+                  onClick={() => go("/courses")}
+                  className="cursor-pointer focus:bg-primary/10 focus:text-primary font-semibold"
+                >
+                  All Courses
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {navItems.slice(1).map((item) => (
               <button
                 key={item.label}
                 onClick={() => go(item.path)}
@@ -120,7 +180,37 @@ const Navbar = () => {
               className="md:hidden py-4 border-t border-primary/10 overflow-hidden"
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
-                {navItems.map((item) => (
+                <button
+                  onClick={() => go("/")}
+                  className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
+                >
+                  Home
+                </button>
+
+                <button
+                  onClick={() => setMobileCoursesOpen((v) => !v)}
+                  className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left flex items-center justify-between"
+                >
+                  <span>Courses</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${mobileCoursesOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {mobileCoursesOpen && (
+                  <div className="pl-4 flex flex-col gap-1 border-l border-primary/10 ml-2">
+                    {coursesMenu.map((c) => (
+                      <button
+                        key={c.path}
+                        onClick={() => go(c.path)}
+                        className="py-2 px-2 text-sm text-muted-foreground hover:text-primary text-left"
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+
+                {navItems.slice(1).map((item) => (
                   <button
                     key={item.label}
                     onClick={() => go(item.path)}

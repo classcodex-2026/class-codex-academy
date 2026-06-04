@@ -196,13 +196,15 @@ const EnquiryForm = () => {
                     <SelectValue placeholder="Choose a course" />
                   </SelectTrigger>
                   <SelectContent className="bg-card border-primary/20">
-                    <SelectItem value="Data Science">Data Science</SelectItem>
-                    <SelectItem value="Artificial Intelligence">Artificial Intelligence</SelectItem>
                     <SelectItem value="Python Programming">Python Programming</SelectItem>
-                    <SelectItem value="Data Engineering">Data Engineering</SelectItem>
-                    <SelectItem value="Machine Learning">Machine Learning</SelectItem>
-                    <SelectItem value="Data Analytics">Data Analytics</SelectItem>
-                    <SelectItem value="Cyber Security">Cyber Security</SelectItem>
+                    <SelectItem value="SQL">SQL</SelectItem>
+                    <SelectItem value="Data Warehouse Modelling">Data Warehouse Modelling</SelectItem>
+                    <SelectItem value="Snowflake">Snowflake</SelectItem>
+                    <SelectItem value="AWS Data Engineering">AWS Data Engineering</SelectItem>
+                    <SelectItem value="Excel">Excel</SelectItem>
+                    <SelectItem value="Power BI">Power BI</SelectItem>
+                    <SelectItem value="Data Analytics Projects">Data Analytics Projects</SelectItem>
+                    <SelectItem value="Data Science">Data Science</SelectItem>
                     <SelectItem value="Multiple Courses">Multiple Courses</SelectItem>
                   </SelectContent>
                 </Select>
