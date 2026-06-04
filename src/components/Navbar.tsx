@@ -68,7 +68,7 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 justify-end">
+          <div className="hidden md:flex items-center gap-1 xl:gap-2 justify-end">
             {navItems.map((item) => (
               <button
                 key={item.label}
@@ -102,7 +102,7 @@ const Navbar = () => {
 
           {/* Mobile toggle */}
           <motion.button
-            className="lg:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground"
             onClick={() => setIsOpen(!isOpen)}
             whileTap={{ scale: 0.9 }}
           >
@@ -117,7 +117,7 @@ const Navbar = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden py-4 border-t border-primary/10 overflow-hidden"
+              className="md:hidden py-4 border-t border-primary/10 overflow-hidden"
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
                 {navItems.map((item) => (
