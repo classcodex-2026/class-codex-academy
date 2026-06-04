@@ -102,7 +102,7 @@ const Navbar = () => {
 
           {/* Mobile toggle */}
           <motion.button
-            className="lg:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground"
             onClick={() => setIsOpen(!isOpen)}
             whileTap={{ scale: 0.9 }}
           >
