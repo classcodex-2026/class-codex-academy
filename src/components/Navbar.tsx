@@ -85,7 +85,7 @@ const Navbar = () => {
             <Button
               size="sm"
               variant="outline"
-              onClick={() => go("/contact")}
+              onClick={() => go("/login")}
               className="ml-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
             >
               <LogIn className="w-4 h-4 mr-1" />
@@ -131,7 +131,7 @@ const Navbar = () => {
                 ))}
                 <Button
                   variant="outline"
-                  onClick={() => go("/contact")}
+                  onClick={() => go("/login")}
                   className="mt-3 w-full border-primary/30 text-primary hover:bg-primary/10"
                 >
                   <LogIn className="w-4 h-4 mr-1" />
