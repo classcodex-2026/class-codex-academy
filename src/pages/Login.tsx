@@ -18,8 +18,7 @@ const Login = () => {
     e.preventDefault();
     const text = `Hello, I'd like to access my ClassCodex student account.\n\nEmail: ${form.email}`;
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-    if (window.top) window.top.location.href = url;
-    else window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (

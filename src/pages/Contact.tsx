@@ -18,8 +18,7 @@ const Contact = () => {
     e.preventDefault();
     const text = `Hello, I'd like to get in touch.\n\nName: ${form.name}\nEmail: ${form.email}\nWhatsApp: ${form.whatsapp}\n\nMessage:\n${form.message}`;
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-    if (window.top) window.top.location.href = url;
-    else window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
