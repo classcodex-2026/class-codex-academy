@@ -1,84 +1,30 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
+import { GraduationCap, Menu, X, LogIn } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 interface NavItem {
   label: string;
-  path?: string;
-  scrollTo?: string;
-  children?: { label: string; path: string }[];
+  path: string;
 }
 
 const navItems: NavItem[] = [
   { label: "Home", path: "/" },
-  {
-    label: "Python Programming",
-    path: "/category/python-programming",
-  },
-  {
-    label: "Data Engineering",
-    path: "/category/data-engineering",
-    children: [
-      { label: "Snowflake", path: "/course/snowflake" },
-      { label: "SQL for Data Engineering", path: "/course/sql-de" },
-      { label: "Data Warehouse Modelling", path: "/course/data-warehouse-modelling" },
-      { label: "Python for Data Engineering", path: "/course/python-de" },
-      { label: "Data Engineering Projects", path: "/course/de-projects" },
-    ],
-  },
-  {
-    label: "Data Analytics",
-    path: "/category/data-analytics",
-    children: [
-      { label: "SQL for Analytics", path: "/course/sql-analytics" },
-      { label: "Excel for Analytics", path: "/course/excel-analytics" },
-      { label: "Data Analytics Projects", path: "/course/da-projects" },
-    ],
-  },
-  {
-    label: "Data Science",
-    path: "/category/data-science",
-    children: [
-      { label: "Python for Data Science", path: "/course/python-ds" },
-      { label: "Statistics for Data Science", path: "/course/statistics-ds" },
-      { label: "Machine Learning Fundamentals", path: "/course/ml-fundamentals" },
-      { label: "Data Science Projects", path: "/course/ds-projects" },
-    ],
-  },
-  {
-    label: "Cyber Security",
-    path: "/category/cyber-security",
-    children: [
-      { label: "Cyber Security Fundamentals", path: "/course/cs-fundamentals" },
-      { label: "Ethical Hacking Basics", path: "/course/ethical-hacking" },
-      { label: "Network Security", path: "/course/network-security" },
-      { label: "Security Projects", path: "/course/security-projects" },
-    ],
-  },
-  { label: "All Courses", path: "/courses" },
-  { label: "Webinar", path: "/webinar" },
+  { label: "Courses", path: "/courses" },
+  { label: "Webinars", path: "/webinar" },
   { label: "About Us", path: "/about" },
   { label: "Contact Us", path: "/contact" },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const go = (path: string) => {
     navigate(path);
     setIsOpen(false);
-    setMobileExpanded(null);
   };
 
   const scrollToEnquiry = () => {
@@ -122,54 +68,33 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-wrap justify-end">
-            {navItems.map((item) =>
-              item.children ? (
-                <DropdownMenu key={item.label}>
-                  <DropdownMenuTrigger asChild>
-                    <button className="px-2 xl:px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
-                      {item.label}
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-card border-primary/20 min-w-[240px]">
-                    {item.path && (
-                      <DropdownMenuItem
-                        onClick={() => go(item.path!)}
-                        className="cursor-pointer hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary font-semibold"
-                      >
-                        View All {item.label}
-                      </DropdownMenuItem>
-                    )}
-                    {item.children.map((c) => (
-                      <DropdownMenuItem
-                        key={c.path}
-                        onClick={() => go(c.path)}
-                        className="cursor-pointer hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary"
-                      >
-                        {c.label}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <button
-                  key={item.label}
-                  onClick={() => go(item.path!)}
-                  className={`px-2 xl:px-3 py-2 text-sm font-medium transition-colors ${
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              )
-            )}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 justify-end">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => go(item.path)}
+                className={`px-3 py-2 text-sm font-medium transition-colors ${
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => go("/contact")}
+              className="ml-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
+            >
+              <LogIn className="w-4 h-4 mr-1" />
+              Login
+            </Button>
             <Button
               onClick={scrollToEnquiry}
               size="sm"
-              className="ml-2 bg-primary text-primary-foreground hover:bg-primary/90 glow-button"
+              className="ml-1 bg-primary text-primary-foreground hover:bg-primary/90 glow-button"
             >
               Enroll
             </Button>
@@ -195,66 +120,26 @@ const Navbar = () => {
               className="lg:hidden py-4 border-t border-primary/10 overflow-hidden"
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
-                {navItems.map((item) =>
-                  item.children ? (
-                    <div key={item.label} className="flex flex-col">
-                      <button
-                        onClick={() =>
-                          setMobileExpanded(
-                            mobileExpanded === item.label ? null : item.label
-                          )
-                        }
-                        className="flex items-center justify-between py-2 px-2 text-muted-foreground hover:text-primary font-medium"
-                      >
-                        {item.label}
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
-                            mobileExpanded === item.label ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {mobileExpanded === item.label && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="ml-4 flex flex-col border-l border-primary/10 pl-3"
-                          >
-                            {item.path && (
-                              <button
-                                onClick={() => go(item.path!)}
-                                className="py-1.5 text-sm text-primary text-left font-medium"
-                              >
-                                View All {item.label}
-                              </button>
-                            )}
-                            {item.children.map((c) => (
-                              <button
-                                key={c.path}
-                                onClick={() => go(c.path)}
-                                className="py-1.5 text-sm text-muted-foreground hover:text-primary text-left"
-                              >
-                                {c.label}
-                              </button>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
-                    <button
-                      key={item.label}
-                      onClick={() => go(item.path!)}
-                      className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
-                    >
-                      {item.label}
-                    </button>
-                  )
-                )}
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => go(item.path)}
+                    className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <Button
+                  variant="outline"
+                  onClick={() => go("/contact")}
+                  className="mt-3 w-full border-primary/30 text-primary hover:bg-primary/10"
+                >
+                  <LogIn className="w-4 h-4 mr-1" />
+                  Login
+                </Button>
                 <Button
                   onClick={scrollToEnquiry}
-                  className="mt-3 w-full bg-primary text-primary-foreground"
+                  className="mt-1 w-full bg-primary text-primary-foreground"
                 >
                   Enroll Now
                 </Button>
