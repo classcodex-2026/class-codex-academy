@@ -78,15 +78,6 @@ const Navbar = () => {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 xl:gap-2 justify-end">
-            <button
-              onClick={() => go("/")}
-              className={`px-3 py-2 text-sm font-medium transition-colors ${
-                location.pathname === "/" ? "text-primary" : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              Home
-            </button>
-
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
