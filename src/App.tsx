@@ -29,6 +29,7 @@ const App = () => (
           <Route path="/webinar" element={<Webinar />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
 
           {/* Legacy route redirects */}
           <Route path="/course/data-science" element={<Navigate to="/category/data-science" replace />} />
