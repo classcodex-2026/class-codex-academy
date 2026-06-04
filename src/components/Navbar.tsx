@@ -122,66 +122,26 @@ const Navbar = () => {
               className="lg:hidden py-4 border-t border-primary/10 overflow-hidden"
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
-                {navItems.map((item) =>
-                  item.children ? (
-                    <div key={item.label} className="flex flex-col">
-                      <button
-                        onClick={() =>
-                          setMobileExpanded(
-                            mobileExpanded === item.label ? null : item.label
-                          )
-                        }
-                        className="flex items-center justify-between py-2 px-2 text-muted-foreground hover:text-primary font-medium"
-                      >
-                        {item.label}
-                        <ChevronDown
-                          className={`w-4 h-4 transition-transform ${
-                            mobileExpanded === item.label ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
-                      <AnimatePresence>
-                        {mobileExpanded === item.label && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: "auto" }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="ml-4 flex flex-col border-l border-primary/10 pl-3"
-                          >
-                            {item.path && (
-                              <button
-                                onClick={() => go(item.path!)}
-                                className="py-1.5 text-sm text-primary text-left font-medium"
-                              >
-                                View All {item.label}
-                              </button>
-                            )}
-                            {item.children.map((c) => (
-                              <button
-                                key={c.path}
-                                onClick={() => go(c.path)}
-                                className="py-1.5 text-sm text-muted-foreground hover:text-primary text-left"
-                              >
-                                {c.label}
-                              </button>
-                            ))}
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ) : (
-                    <button
-                      key={item.label}
-                      onClick={() => go(item.path!)}
-                      className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
-                    >
-                      {item.label}
-                    </button>
-                  )
-                )}
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => go(item.path)}
+                    className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <Button
+                  variant="outline"
+                  onClick={() => go("/contact")}
+                  className="mt-3 w-full border-primary/30 text-primary hover:bg-primary/10"
+                >
+                  <LogIn className="w-4 h-4 mr-1" />
+                  Login
+                </Button>
                 <Button
                   onClick={scrollToEnquiry}
-                  className="mt-3 w-full bg-primary text-primary-foreground"
+                  className="mt-1 w-full bg-primary text-primary-foreground"
                 >
                   Enroll Now
                 </Button>
