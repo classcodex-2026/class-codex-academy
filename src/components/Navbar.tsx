@@ -122,15 +122,6 @@ const Navbar = () => {
               </button>
             ))}
             <Button
-              size="sm"
-              variant="outline"
-              onClick={() => go("/login")}
-              className="ml-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
-            >
-              <LogIn className="w-4 h-4 mr-1" />
-              Login
-            </Button>
-            <Button
               asChild
               size="sm"
               className="ml-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
