@@ -52,7 +52,7 @@ export interface CourseSyllabusData {
 const WA_NUMBER = "919442150416";
 
 export const buildWhatsAppLink = (courseName: string) => {
-  const message = `Hello,\nI am interested in enrolling in the course:\n\nCourse Name: ${courseName}\n\nPlease share:\n- Course Fee\n- Batch Start Date\n- Syllabus\n- Enrollment Process\n\nThank you.`;
+  const message = `Hello I am interested in enrolling in ${courseName}`;
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
 };
 
@@ -165,7 +165,7 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />
-                  Enroll via WhatsApp
+                  Enroll Now
                 </a>
               </Button>
 
@@ -362,7 +362,7 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />
-                  Enroll via WhatsApp
+                  Enroll Now
                 </a>
               </Button>
             </div>

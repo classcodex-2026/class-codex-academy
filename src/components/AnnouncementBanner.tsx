@@ -7,7 +7,7 @@ const AnnouncementBanner = () => {
 
   if (!isVisible) return null;
 
-  const waLink = "https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches.";
+  const waLink = "https://wa.me/919442150416";
 
   return (
     <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 text-foreground py-2.5 relative overflow-hidden z-[60] border-b border-primary/20">
