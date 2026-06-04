@@ -31,15 +31,23 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
 
-          {/* Legacy route redirects */}
-          <Route path="/course/data-science" element={<Navigate to="/category/data-science" replace />} />
-          <Route path="/course/data-engineering" element={<Navigate to="/category/data-engineering" replace />} />
-          <Route path="/course/data-analytics" element={<Navigate to="/category/data-analytics" replace />} />
-          <Route path="/course/cyber-security" element={<Navigate to="/category/cyber-security" replace />} />
-          <Route path="/course/machine-learning" element={<Navigate to="/course/ml-fundamentals" replace />} />
-          <Route path="/course/ai" element={<Navigate to="/category/data-science" replace />} />
-          <Route path="/course/sql" element={<Navigate to="/course/sql-analytics" replace />} />
-          <Route path="/course/powerbi" element={<Navigate to="/course/excel-analytics" replace />} />
+          {/* Legacy redirects */}
+          <Route path="/category/cyber-security" element={<Navigate to="/courses" replace />} />
+          <Route path="/course/sql-analytics" element={<Navigate to="/course/sql" replace />} />
+          <Route path="/course/sql-de" element={<Navigate to="/course/sql" replace />} />
+          <Route path="/course/python-de" element={<Navigate to="/course/python" replace />} />
+          <Route path="/course/python-ds" element={<Navigate to="/course/python" replace />} />
+          <Route path="/course/excel-analytics" element={<Navigate to="/course/excel" replace />} />
+          <Route path="/course/powerbi" element={<Navigate to="/course/power-bi" replace />} />
+          <Route path="/course/ml-fundamentals" element={<Navigate to="/course/data-science" replace />} />
+          <Route path="/course/statistics-ds" element={<Navigate to="/course/data-science" replace />} />
+          <Route path="/course/ds-projects" element={<Navigate to="/course/data-science" replace />} />
+          <Route path="/course/de-projects" element={<Navigate to="/course/aws-data-engineering" replace />} />
+          <Route path="/course/da-projects" element={<Navigate to="/course/data-analytics-projects" replace />} />
+          <Route path="/course/cs-fundamentals" element={<Navigate to="/courses" replace />} />
+          <Route path="/course/ethical-hacking" element={<Navigate to="/courses" replace />} />
+          <Route path="/course/network-security" element={<Navigate to="/courses" replace />} />
+          <Route path="/course/security-projects" element={<Navigate to="/courses" replace />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
