@@ -70,54 +70,33 @@ const Navbar = () => {
           </motion.div>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-1 xl:gap-2 flex-wrap justify-end">
-            {navItems.map((item) =>
-              item.children ? (
-                <DropdownMenu key={item.label}>
-                  <DropdownMenuTrigger asChild>
-                    <button className="px-2 xl:px-3 py-2 text-sm text-muted-foreground hover:text-primary transition-colors font-medium flex items-center gap-1">
-                      {item.label}
-                      <ChevronDown className="w-3.5 h-3.5" />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-card border-primary/20 min-w-[240px]">
-                    {item.path && (
-                      <DropdownMenuItem
-                        onClick={() => go(item.path!)}
-                        className="cursor-pointer hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary font-semibold"
-                      >
-                        View All {item.label}
-                      </DropdownMenuItem>
-                    )}
-                    {item.children.map((c) => (
-                      <DropdownMenuItem
-                        key={c.path}
-                        onClick={() => go(c.path)}
-                        className="cursor-pointer hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary"
-                      >
-                        {c.label}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <button
-                  key={item.label}
-                  onClick={() => go(item.path!)}
-                  className={`px-2 xl:px-3 py-2 text-sm font-medium transition-colors ${
-                    location.pathname === item.path
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-primary"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              )
-            )}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2 justify-end">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => go(item.path)}
+                className={`px-3 py-2 text-sm font-medium transition-colors ${
+                  location.pathname === item.path
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-primary"
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => go("/contact")}
+              className="ml-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
+            >
+              <LogIn className="w-4 h-4 mr-1" />
+              Login
+            </Button>
             <Button
               onClick={scrollToEnquiry}
               size="sm"
-              className="ml-2 bg-primary text-primary-foreground hover:bg-primary/90 glow-button"
+              className="ml-1 bg-primary text-primary-foreground hover:bg-primary/90 glow-button"
             >
               Enroll
             </Button>
