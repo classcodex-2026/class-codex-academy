@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BookOpen, Users, Award, Zap, Calendar, MessageCircle } from "lucide-react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import TechLogosMarquee from "./TechLogosMarquee";
 
