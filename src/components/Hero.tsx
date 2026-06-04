@@ -117,10 +117,16 @@ const Hero = () => {
             <Button
               size="lg"
               className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/30 text-lg px-8 py-6"
-              onClick={() => navigate("/consultation")}
+              asChild
             >
-              <Calendar className="w-5 h-5 mr-2" />
-              Book Free Consultation
+              <a
+                href="https://wa.me/919442150416?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex.%20Please%20share%20available%20slots."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle className="w-5 h-5 mr-2" />
+                Book Free Consultation
+              </a>
             </Button>
           </motion.div>
           
