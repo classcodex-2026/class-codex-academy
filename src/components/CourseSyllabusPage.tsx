@@ -165,7 +165,7 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />
-                  Enroll via WhatsApp
+                  Enroll Now
                 </a>
               </Button>
 
@@ -362,7 +362,7 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />
-                  Enroll via WhatsApp
+                  Enroll Now
                 </a>
               </Button>
             </div>
