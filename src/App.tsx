@@ -11,6 +11,7 @@ import AllCourses from "./pages/AllCourses";
 import Webinar from "./pages/Webinar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
