@@ -106,8 +106,7 @@ const Consultation = () => {
       `Please contact me regarding a consultation.`;
 
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
-    if (window.top) window.top.location.href = url;
-    else window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
     setSubmitted(true);
     toast.success("Consultation request sent");
   };
@@ -155,7 +154,7 @@ const Consultation = () => {
               >
                 <a
                   href={`https://wa.me/${WA_NUMBER}`}
-                  target="_top"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />

@@ -18,8 +18,7 @@ const Contact = () => {
     e.preventDefault();
     const text = `Hello, I'd like to get in touch.\n\nName: ${form.name}\nEmail: ${form.email}\nWhatsApp: ${form.whatsapp}\n\nMessage:\n${form.message}`;
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-    if (window.top) window.top.location.href = url;
-    else window.location.href = url;
+    window.open(url, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -112,7 +111,7 @@ const Contact = () => {
           <aside className="space-y-4">
             <a
               href={`https://wa.me/${WA_NUMBER}`}
-              target="_top"
+              target="_blank"
               rel="noopener noreferrer"
               className="block bg-card border border-primary/20 hover:border-primary/40 rounded-2xl p-6 transition-colors"
             >
