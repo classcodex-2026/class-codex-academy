@@ -12,6 +12,7 @@ import Webinar from "./pages/Webinar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Consultation from "./pages/Consultation";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/consultation" element={<Consultation />} />
+          <Route path="/book-consultation" element={<Navigate to="/consultation" replace />} />
 
           {/* Legacy redirects */}
           <Route path="/category/cyber-security" element={<Navigate to="/courses" replace />} />

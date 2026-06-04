@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Award, Zap } from "lucide-react";
+import { ArrowRight, BookOpen, Users, Award, Zap, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import TechLogosMarquee from "./TechLogosMarquee";
 
 const Hero = () => {
+  const navigate = useNavigate();
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: "smooth" });
@@ -112,13 +114,13 @@ const Hero = () => {
               Explore Courses
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
-            <Button 
-              variant="outline"
+            <Button
               size="lg"
-              className="border-primary/50 text-primary hover:bg-primary/10 hover:border-primary text-lg px-8 py-6"
-              onClick={() => scrollToSection("enquiry")}
+              className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/30 text-lg px-8 py-6"
+              onClick={() => navigate("/consultation")}
             >
-              Get Free Consultation
+              <Calendar className="w-5 h-5 mr-2" />
+              Book Free Consultation
             </Button>
           </motion.div>
           
