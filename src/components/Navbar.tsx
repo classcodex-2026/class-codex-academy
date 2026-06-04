@@ -157,13 +157,6 @@ const Navbar = () => {
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
                 <button
-                  onClick={() => go("/")}
-                  className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
-                >
-                  Home
-                </button>
-
-                <button
                   onClick={() => setMobileCoursesOpen((v) => !v)}
                   className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left flex items-center justify-between"
                 >
