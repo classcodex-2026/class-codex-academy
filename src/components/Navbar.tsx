@@ -19,14 +19,12 @@ const navItems: NavItem[] = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   const go = (path: string) => {
     navigate(path);
     setIsOpen(false);
-    setMobileExpanded(null);
   };
 
   const scrollToEnquiry = () => {
