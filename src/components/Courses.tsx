@@ -1,83 +1,20 @@
-import CourseCard, { CourseStatus } from "./CourseCard";
-import { Database, Code, Snowflake, BarChart3, Cloud } from "lucide-react";
+import CourseCard from "./CourseCard";
 import { motion } from "framer-motion";
-
-interface CourseDef {
-  title: string;
-  description: string;
-  price: number | null;
-  originalPrice?: number | null;
-  duration: string;
-  modulesCount: number;
-  icon: React.ReactNode;
-  status: CourseStatus;
-  syllabusPath: string;
-}
-
-const courses: CourseDef[] = [
-  {
-    title: "AWS Data Engineering",
-    description:
-      "Master cloud data engineering with AWS — from foundations to production-ready batch and streaming pipelines.",
-    price: null,
-    originalPrice: null,
-    duration: "150 Hours",
-    modulesCount: 14,
-    icon: <Cloud className="w-8 h-8 text-primary" />,
-    status: "Coming Soon",
-    syllabusPath: "/course/data-engineering",
-  },
-  {
-    title: "Database & SQL",
-    description:
-      "Master database fundamentals and advanced SQL for analytics, reporting and real-world data systems.",
-    price: 999,
-    originalPrice: 3999,
-    duration: "8 Hours",
-    modulesCount: 9,
-    icon: <Database className="w-8 h-8 text-primary" />,
-    status: "New Batch Starting",
-    syllabusPath: "/course/sql",
-  },
-  {
-    title: "Python Programming",
-    description:
-      "Learn Python from basics to advanced — focused on data analysis, automation and a hands-on mini project.",
-    price: 999,
-    originalPrice: 4999,
-    duration: "8 Hours",
-    modulesCount: 7,
-    icon: <Code className="w-8 h-8 text-primary" />,
-    status: "Open for Enrollment",
-    syllabusPath: "/course/python",
-  },
-  {
-    title: "Snowflake",
-    description:
-      "Cloud data warehousing with Snowflake — architecture, loading, performance, security and BI integration.",
-    price: 2999,
-    originalPrice: 8000,
-    duration: "6 Weeks",
-    modulesCount: 9,
-    icon: <Snowflake className="w-8 h-8 text-primary" />,
-    status: "New Batch Starting",
-    syllabusPath: "/course/snowflake",
-  },
-  {
-    title: "Power BI",
-    description:
-      "Create stunning dashboards and reports with Microsoft Power BI for modern business intelligence.",
-    price: 999,
-    originalPrice: 3999,
-    duration: "4 Weeks",
-    modulesCount: 9,
-    icon: <BarChart3 className="w-8 h-8 text-primary" />,
-    status: "Open for Enrollment",
-    syllabusPath: "/course/powerbi",
-  },
-];
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { getAllCourses } from "@/data/courses";
+import { getCourseIcon } from "@/lib/courseIcons";
 
 const Courses = () => {
+  const navigate = useNavigate();
+  // Show a curated subset on the homepage (one flagship per category) for a clean grid
+  const featuredSlugs = ["python", "snowflake", "sql-analytics", "ml-fundamentals", "ethical-hacking", "de-projects"];
+  const all = getAllCourses();
+  const featured = featuredSlugs
+    .map((s) => all.find((c) => c.slug === s))
+    .filter(Boolean) as ReturnType<typeof getAllCourses>;
+
   return (
     <section id="courses" className="py-20 bg-background relative overflow-hidden">
       <div className="absolute inset-0 grid-pattern opacity-30" />
@@ -101,8 +38,7 @@ const Courses = () => {
             Industry-Ready <span className="text-gradient">Curriculum</span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Choose from carefully designed courses to build the in-demand skills
-            employers are looking for.
+            Explore featured courses across Python, Data Engineering, Analytics, Data Science and Cyber Security.
           </p>
         </motion.div>
 
@@ -110,18 +46,40 @@ const Courses = () => {
           id="pricing"
           className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto"
         >
-          {courses.map((course, index) => (
+          {featured.map((course, index) => (
             <motion.div
-              key={course.title}
+              key={course.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               className="h-full"
             >
-              <CourseCard {...course} />
+              <CourseCard
+                title={course.title}
+                description={course.description}
+                price={course.price ?? null}
+                originalPrice={course.originalPrice ?? null}
+                duration={course.duration}
+                modulesCount={course.modulesCount}
+                icon={getCourseIcon(course.iconName)}
+                status={course.status}
+                syllabusPath={`/course/${course.slug}`}
+              />
             </motion.div>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Button
+            onClick={() => navigate("/courses")}
+            size="lg"
+            variant="outline"
+            className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
+          >
+            View All Courses
+            <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
         </div>
       </div>
     </section>
