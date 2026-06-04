@@ -158,7 +158,7 @@ const Navbar = () => {
             >
               <a
                 href="https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches."
-                target="_blank"
+                target="_top"
                 rel="noopener noreferrer"
               >
                 Enroll
@@ -239,7 +239,7 @@ const Navbar = () => {
                 >
                   <a
                     href="https://wa.me/919442150416?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20in%20a%20course%20at%20ClassCodex.%20Please%20share%20course%20details%2C%20fees%2C%20and%20upcoming%20batches."
-                    target="_blank"
+                    target="_top"
                     rel="noopener noreferrer"
                   >
                     Enroll

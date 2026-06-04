@@ -121,7 +121,7 @@ const CourseCard = ({
           >
             <a
               href={buildWhatsAppLink(title)}
-              target="_blank"
+              target="_top"
               rel="noopener noreferrer"
             >
               <MessageCircle className="w-4 h-4 mr-1" />
