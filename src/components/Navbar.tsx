@@ -1,70 +1,18 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
+import { GraduationCap, Menu, X, LogIn } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 interface NavItem {
   label: string;
-  path?: string;
-  scrollTo?: string;
-  children?: { label: string; path: string }[];
+  path: string;
 }
 
 const navItems: NavItem[] = [
   { label: "Home", path: "/" },
-  {
-    label: "Python Programming",
-    path: "/category/python-programming",
-  },
-  {
-    label: "Data Engineering",
-    path: "/category/data-engineering",
-    children: [
-      { label: "Snowflake", path: "/course/snowflake" },
-      { label: "SQL for Data Engineering", path: "/course/sql-de" },
-      { label: "Data Warehouse Modelling", path: "/course/data-warehouse-modelling" },
-      { label: "Python for Data Engineering", path: "/course/python-de" },
-      { label: "Data Engineering Projects", path: "/course/de-projects" },
-    ],
-  },
-  {
-    label: "Data Analytics",
-    path: "/category/data-analytics",
-    children: [
-      { label: "SQL for Analytics", path: "/course/sql-analytics" },
-      { label: "Excel for Analytics", path: "/course/excel-analytics" },
-      { label: "Data Analytics Projects", path: "/course/da-projects" },
-    ],
-  },
-  {
-    label: "Data Science",
-    path: "/category/data-science",
-    children: [
-      { label: "Python for Data Science", path: "/course/python-ds" },
-      { label: "Statistics for Data Science", path: "/course/statistics-ds" },
-      { label: "Machine Learning Fundamentals", path: "/course/ml-fundamentals" },
-      { label: "Data Science Projects", path: "/course/ds-projects" },
-    ],
-  },
-  {
-    label: "Cyber Security",
-    path: "/category/cyber-security",
-    children: [
-      { label: "Cyber Security Fundamentals", path: "/course/cs-fundamentals" },
-      { label: "Ethical Hacking Basics", path: "/course/ethical-hacking" },
-      { label: "Network Security", path: "/course/network-security" },
-      { label: "Security Projects", path: "/course/security-projects" },
-    ],
-  },
-  { label: "All Courses", path: "/courses" },
-  { label: "Webinar", path: "/webinar" },
+  { label: "Courses", path: "/courses" },
+  { label: "Webinars", path: "/webinar" },
   { label: "About Us", path: "/about" },
   { label: "Contact Us", path: "/contact" },
 ];
