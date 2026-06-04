@@ -152,11 +152,11 @@ const Navbar = () => {
               Login
             </Button>
             <Button
-              onClick={scrollToEnquiry}
+              onClick={() => go("/consultation")}
               size="sm"
-              className="ml-1 bg-primary text-primary-foreground hover:bg-primary/90 glow-button"
+              className="ml-1 bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20"
             >
-              Enroll
+              Book Free Consultation
             </Button>
           </div>
 
