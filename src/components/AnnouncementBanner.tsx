@@ -27,7 +27,7 @@ const AnnouncementBanner = () => {
             </span>
             <a
               href={waLink}
-              target="_top"
+              target="_blank"
               rel="noopener noreferrer"
               className="ml-4 text-sm font-semibold text-primary hover:text-primary/80 flex items-center gap-1 transition-colors"
             >

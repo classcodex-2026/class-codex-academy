@@ -121,7 +121,7 @@ const Hero = () => {
             >
               <a
                 href="https://wa.me/919442150416?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex.%20Please%20share%20available%20slots."
-                target="_top"
+                target="_blank"
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="w-5 h-5 mr-2" />

@@ -155,7 +155,7 @@ const Consultation = () => {
               >
                 <a
                   href={`https://wa.me/${WA_NUMBER}`}
-                  target="_top"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />
