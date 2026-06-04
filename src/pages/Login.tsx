@@ -17,10 +17,9 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hello, I'd like to access my ClassCodex student account.\n\nEmail: ${form.email}`;
-    window.open(
-      `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`,
-      "_blank"
-    );
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    if (window.top) window.top.location.href = url;
+    else window.location.href = url;
   };
 
   return (
@@ -117,7 +116,7 @@ const Login = () => {
                 href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
                   "Hi, I need help logging in to ClassCodex."
                 )}`}
-                target="_blank"
+                target="_top"
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="w-4 h-4 mr-1" />
