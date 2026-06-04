@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X, LogIn, ChevronDown } from "lucide-react";
+import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -78,15 +78,6 @@ const Navbar = () => {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-1 xl:gap-2 justify-end">
-            <button
-              onClick={() => go("/")}
-              className={`px-3 py-2 text-sm font-medium transition-colors ${
-                location.pathname === "/" ? "text-primary" : "text-muted-foreground hover:text-primary"
-              }`}
-            >
-              Home
-            </button>
-
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -131,15 +122,6 @@ const Navbar = () => {
               </button>
             ))}
             <Button
-              size="sm"
-              variant="outline"
-              onClick={() => go("/login")}
-              className="ml-2 border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
-            >
-              <LogIn className="w-4 h-4 mr-1" />
-              Login
-            </Button>
-            <Button
               asChild
               size="sm"
               className="ml-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
@@ -175,13 +157,6 @@ const Navbar = () => {
             >
               <div className="flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
                 <button
-                  onClick={() => go("/")}
-                  className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left"
-                >
-                  Home
-                </button>
-
-                <button
                   onClick={() => setMobileCoursesOpen((v) => !v)}
                   className="py-2 px-2 text-muted-foreground hover:text-primary font-medium text-left flex items-center justify-between"
                 >
@@ -213,14 +188,6 @@ const Navbar = () => {
                     {item.label}
                   </button>
                 ))}
-                <Button
-                  variant="outline"
-                  onClick={() => go("/login")}
-                  className="mt-3 w-full border-primary/30 text-primary hover:bg-primary/10"
-                >
-                  <LogIn className="w-4 h-4 mr-1" />
-                  Login
-                </Button>
                 <Button
                   asChild
                   className="mt-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
