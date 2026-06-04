@@ -12,6 +12,9 @@ import DataEngineeringCourse from "./pages/DataEngineeringCourse";
 import MLCourse from "./pages/MLCourse";
 import DataAnalyticsCourse from "./pages/DataAnalyticsCourse";
 import CyberSecurityCourse from "./pages/CyberSecurityCourse";
+import SQLCourse from "./pages/SQLCourse";
+import SnowflakeCourse from "./pages/SnowflakeCourse";
+import PowerBICourse from "./pages/PowerBICourse";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +33,9 @@ const App = () => (
           <Route path="/course/machine-learning" element={<MLCourse />} />
           <Route path="/course/data-analytics" element={<DataAnalyticsCourse />} />
           <Route path="/course/cyber-security" element={<CyberSecurityCourse />} />
+          <Route path="/course/sql" element={<SQLCourse />} />
+          <Route path="/course/snowflake" element={<SnowflakeCourse />} />
+          <Route path="/course/powerbi" element={<PowerBICourse />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
