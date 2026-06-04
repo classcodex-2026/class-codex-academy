@@ -196,14 +196,6 @@ const Navbar = () => {
                   </button>
                 ))}
                 <Button
-                  variant="outline"
-                  onClick={() => go("/login")}
-                  className="mt-3 w-full border-primary/30 text-primary hover:bg-primary/10"
-                >
-                  <LogIn className="w-4 h-4 mr-1" />
-                  Login
-                </Button>
-                <Button
                   asChild
                   className="mt-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
