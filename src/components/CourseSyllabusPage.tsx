@@ -107,9 +107,8 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
             <p className="text-muted-foreground text-lg">{data.overview}</p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
             {[
-              { icon: Clock, label: "Duration", value: data.duration },
               { icon: BookOpen, label: "Modules", value: String(modulesCount) },
               {
                 icon: FolderKanban,
@@ -127,6 +126,28 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                 <p className="font-semibold text-foreground">{s.value}</p>
               </div>
             ))}
+          </div>
+
+          {/* Batch Timings */}
+          <div className="mt-6 rounded-xl border border-primary/20 bg-card/60 backdrop-blur p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-5 h-5 text-primary" />
+              <h3 className="font-semibold text-foreground">Batch Timings</h3>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4 text-sm">
+              <div>
+                <p className="text-primary font-semibold mb-1">Weekdays Batch (Monday – Friday)</p>
+                <p className="text-muted-foreground">
+                  1 – 1.5 hr&nbsp;&nbsp;:&nbsp;&nbsp;7 AM to 9 PM (in-between any timings)
+                </p>
+              </div>
+              <div>
+                <p className="text-primary font-semibold mb-1">Weekend Batch (Sat & Sun)</p>
+                <p className="text-muted-foreground">
+                  2 – 3 hr&nbsp;&nbsp;:&nbsp;&nbsp;8 AM to 8 PM (in-between any timings)
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -174,15 +195,6 @@ const CourseSyllabusPage = ({ data }: { data: CourseSyllabusData }) => {
                   This course includes
                 </p>
                 <ul className="space-y-3 text-sm text-muted-foreground">
-                  <li className="flex items-center justify-between">
-                    <span className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
-                      Duration
-                    </span>
-                    <span className="font-medium text-foreground">
-                      {data.duration}
-                    </span>
-                  </li>
                   <li className="flex items-center justify-between">
                     <span className="flex items-center gap-2">
                       <BookOpen className="w-4 h-4" />
