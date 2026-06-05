@@ -16,6 +16,13 @@ import Consultation from "./pages/Consultation";
 import WhatsAppEnquiry from "./pages/WhatsAppEnquiry";
 import EmailEnquiry from "./pages/EmailEnquiry";
 import FloatingChatWidget from "./components/FloatingChatWidget";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCourses from "./pages/admin/AdminCourses";
+import AdminCourseEdit from "./pages/admin/AdminCourseEdit";
+import AdminWebinars from "./pages/admin/AdminWebinars";
+import AdminConsultations from "./pages/admin/AdminConsultations";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +45,15 @@ const App = () => (
           <Route path="/book-consultation" element={<Navigate to="/consultation" replace />} />
           <Route path="/whatsapp-enquiry" element={<WhatsAppEnquiry />} />
           <Route path="/email-enquiry" element={<EmailEnquiry />} />
+
+          {/* Admin */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/courses/:id" element={<AdminCourseEdit />} />
+          <Route path="/admin/webinars" element={<AdminWebinars />} />
+          <Route path="/admin/consultations" element={<AdminConsultations />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
 
           {/* Legacy redirects */}
           <Route path="/category/cyber-security" element={<Navigate to="/courses" replace />} />

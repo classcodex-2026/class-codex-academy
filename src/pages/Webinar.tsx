@@ -1,23 +1,33 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, Clock, User, MessageCircle, Sparkles } from "lucide-react";
 import { buildWhatsAppLink } from "@/components/CourseSyllabusPage";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Webinar {
+  id: string;
   title: string;
-  topic: string;
-  date: string;
-  time: string;
-  speaker: string;
-  description: string;
+  description: string | null;
+  scheduled_date: string | null;
+  scheduled_time: string | null;
+  banner_url: string | null;
+  recording_url: string | null;
+  status: string;
 }
 
-// Set this list as new webinars are scheduled.
-const upcoming: Webinar[] = [];
-
 const Webinar = () => {
+  const [upcoming, setUpcoming] = useState<Webinar[]>([]);
+  useEffect(() => {
+    supabase
+      .from("webinars")
+      .select("*")
+      .eq("status", "upcoming")
+      .order("scheduled_date", { ascending: true })
+      .then(({ data }) => setUpcoming((data ?? []) as Webinar[]));
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -70,19 +80,18 @@ const Webinar = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto">
             {upcoming.map((w, i) => (
               <motion.div
-                key={i}
+                key={w.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 className="bg-card border border-primary/20 rounded-2xl p-6 hover:border-primary/40 transition-colors"
               >
+                {w.banner_url && <img src={w.banner_url} alt={w.title} className="w-full h-40 object-cover rounded-xl mb-4" />}
                 <h3 className="text-2xl font-bold text-foreground mb-1">{w.title}</h3>
-                <p className="text-primary font-medium mb-3">{w.topic}</p>
                 <p className="text-sm text-muted-foreground mb-5">{w.description}</p>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
-                  <li className="flex items-center gap-2"><CalendarDays className="w-4 h-4 text-primary" /> {w.date}</li>
-                  <li className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /> {w.time}</li>
-                  <li className="flex items-center gap-2"><User className="w-4 h-4 text-primary" /> {w.speaker}</li>
+                  {w.scheduled_date && <li className="flex items-center gap-2"><CalendarDays className="w-4 h-4 text-primary" /> {w.scheduled_date}</li>}
+                  {w.scheduled_time && <li className="flex items-center gap-2"><Clock className="w-4 h-4 text-primary" /> {w.scheduled_time}</li>}
                 </ul>
                 <Button asChild className="w-full bg-emerald-500 hover:bg-emerald-600 text-white">
                   <a
