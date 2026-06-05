@@ -116,7 +116,7 @@ const Consultation = () => {
       `Requirement:\n${d.requirement}\n\n` +
       `Please contact me regarding a consultation.`;
 
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+    const url = `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     setSubmitted(true);
     toast.success("Consultation request sent");
@@ -164,7 +164,7 @@ const Consultation = () => {
                 className="bg-emerald-500 hover:bg-emerald-600 text-white"
               >
                 <a
-                  href={`https://wa.me/${WA_NUMBER}`}
+                  href={`https://web.whatsapp.com/send?phone=${WA_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
