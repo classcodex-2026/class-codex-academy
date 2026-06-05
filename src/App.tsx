@@ -13,6 +13,9 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
 import Consultation from "./pages/Consultation";
+import WhatsAppEnquiry from "./pages/WhatsAppEnquiry";
+import EmailEnquiry from "./pages/EmailEnquiry";
+import FloatingChatWidget from "./components/FloatingChatWidget";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +36,8 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/consultation" element={<Consultation />} />
           <Route path="/book-consultation" element={<Navigate to="/consultation" replace />} />
+          <Route path="/whatsapp-enquiry" element={<WhatsAppEnquiry />} />
+          <Route path="/email-enquiry" element={<EmailEnquiry />} />
 
           {/* Legacy redirects */}
           <Route path="/category/cyber-security" element={<Navigate to="/courses" replace />} />
@@ -55,6 +60,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <FloatingChatWidget />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
