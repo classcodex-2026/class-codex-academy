@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Mail, MessageCircle, Send } from "lucide-react";
 
@@ -7,6 +7,8 @@ const WA_NUMBER = "919629997602";
 
 const FloatingChatWidget = () => {
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <>
