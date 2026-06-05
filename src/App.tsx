@@ -16,6 +16,13 @@ import Consultation from "./pages/Consultation";
 import WhatsAppEnquiry from "./pages/WhatsAppEnquiry";
 import EmailEnquiry from "./pages/EmailEnquiry";
 import FloatingChatWidget from "./components/FloatingChatWidget";
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminCourses from "./pages/admin/AdminCourses";
+import AdminCourseEdit from "./pages/admin/AdminCourseEdit";
+import AdminWebinars from "./pages/admin/AdminWebinars";
+import AdminConsultations from "./pages/admin/AdminConsultations";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
