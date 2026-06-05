@@ -79,7 +79,7 @@ const Consultation = () => {
     if (errors[key]) setErrors((e) => ({ ...e, [key]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = schema.safeParse(form);
     if (!parsed.success) {
@@ -94,6 +94,16 @@ const Consultation = () => {
     }
 
     const d = parsed.data;
+
+    // Save to database so admin can see it
+    await supabase.from("consultation_requests").insert({
+      name: d.fullName,
+      email: d.email || `${d.whatsapp}@unknown`,
+      whatsapp: d.whatsapp,
+      interested_course: d.interest,
+      requirement: `Role: ${d.role}\nExperience: ${d.experience || "-"}\n\n${d.requirement}`,
+    });
+
     const message =
       `New Free Consultation Request\n\n` +
       `Name: ${d.fullName}\n` +
