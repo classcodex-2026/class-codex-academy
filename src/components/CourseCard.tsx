@@ -75,10 +75,6 @@ const CourseCard = ({
         {/* Meta chips */}
         <div className="flex flex-wrap gap-2 mb-5">
           <div className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/40 border border-border rounded-full px-3 py-1.5">
-            <Clock className="w-3.5 h-3.5 text-primary" />
-            {duration}
-          </div>
-          <div className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/40 border border-border rounded-full px-3 py-1.5">
             <BookOpen className="w-3.5 h-3.5 text-primary" />
             {modulesCount} Modules
           </div>
