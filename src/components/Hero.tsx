@@ -1,170 +1,182 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BookOpen, Users, Award, Zap, Calendar, MessageCircle } from "lucide-react";
+import { ArrowRight, MessageCircle, Sparkles, Play, Star, Users, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import TechLogosMarquee from "./TechLogosMarquee";
 
+const ROTATING = ["SQL", "Python", "Snowflake", "Power BI", "Data Science"];
+
 const Hero = () => {
-  const navigate = useNavigate();
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [text, setText] = useState("");
+  const [wordIdx, setWordIdx] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  // Typing effect
+  useEffect(() => {
+    const current = ROTATING[wordIdx];
+    const speed = deleting ? 55 : 110;
+    const t = setTimeout(() => {
+      if (!deleting) {
+        const next = current.slice(0, text.length + 1);
+        setText(next);
+        if (next === current) {
+          setTimeout(() => setDeleting(true), 1400);
+        }
+      } else {
+        const next = current.slice(0, text.length - 1);
+        setText(next);
+        if (next === "") {
+          setDeleting(false);
+          setWordIdx((i) => (i + 1) % ROTATING.length);
+        }
+      }
+    }, speed);
+    return () => clearTimeout(t);
+  }, [text, deleting, wordIdx]);
+
+  const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
-      {/* Animated background gradients */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
-        <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-primary/20 blur-[128px]"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-purple-500/20 blur-[128px]"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.2, 0.4, 0.2],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+    <section className="relative overflow-hidden bg-background pt-12 md:pt-20 pb-16">
+      {/* Soft gradient background */}
+      <div className="absolute inset-0 gradient-soft" />
+      <div className="absolute inset-0 bg-grid" />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 grid-pattern opacity-50" />
-      
-      <div className="container mx-auto px-4 py-20 md:py-32 relative z-10">
+      {/* Animated blobs */}
+      <div className="blob bg-primary/30 w-[520px] h-[520px] -top-40 -left-32 animate-blob" />
+      <div className="blob bg-secondary/30 w-[460px] h-[460px] top-20 -right-32 animate-blob" style={{ animationDelay: "-6s" }} />
+      <div className="blob bg-sky-400/25 w-[380px] h-[380px] bottom-0 left-1/3 animate-blob" style={{ animationDelay: "-12s" }} />
+
+      {/* Floating tech icons */}
+      {[
+        { label: "🐍", top: "12%", left: "8%", d: 0 },
+        { label: "📊", top: "20%", right: "10%", d: 1.2 },
+        { label: "❄️", bottom: "18%", left: "6%", d: 2.4 },
+        { label: "🗄️", bottom: "22%", right: "8%", d: 0.6 },
+        { label: "☁️", top: "55%", left: "3%", d: 1.8 },
+        { label: "⚡", top: "60%", right: "4%", d: 3 },
+      ].map((f, i) => (
+        <motion.div
+          key={i}
+          className="absolute hidden md:flex w-14 h-14 rounded-2xl bg-white shadow-elegant items-center justify-center text-2xl border border-border"
+          style={{ top: f.top as any, left: f.left as any, right: f.right as any, bottom: f.bottom as any }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 + f.d * 0.1, duration: 0.6 }}
+        >
+          <motion.span
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 5 + i, repeat: Infinity, ease: "easeInOut", delay: f.d }}
+          >
+            {f.label}
+          </motion.span>
+        </motion.div>
+      ))}
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 bg-primary/10 backdrop-blur-sm rounded-full px-5 py-2.5 mb-8 neon-border"
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 bg-white border border-border shadow-soft rounded-full pl-2 pr-4 py-1.5 mb-6"
           >
-            <motion.span
-              className="w-2.5 h-2.5 bg-primary rounded-full"
-              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-            <span className="text-primary text-sm font-semibold tracking-wide uppercase">
-              Enrolling Batch 2026
+            <span className="flex items-center gap-1 bg-accent text-accent-foreground px-2 py-0.5 rounded-full text-xs font-semibold">
+              <Sparkles className="w-3 h-3" /> NEW
             </span>
-            <Zap className="w-4 h-4 text-primary" />
+            <span className="text-sm text-foreground/70">Batch 2026 enrolling — limited seats</span>
           </motion.div>
-          
-          {/* Main Heading */}
+
+          {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-[1.05] tracking-tight"
           >
-            Master{" "}
-            <span className="text-gradient">In-Demand</span>
+            Master In-Demand
             <br />
-            Tech Skills with{" "}
-            <motion.span
-              className="text-primary neon-text inline-block"
-              animate={{ textShadow: [
-                "0 0 10px hsl(180 100% 50% / 0.8), 0 0 20px hsl(180 100% 50% / 0.5)",
-                "0 0 20px hsl(180 100% 50% / 1), 0 0 40px hsl(180 100% 50% / 0.7)",
-                "0 0 10px hsl(180 100% 50% / 0.8), 0 0 20px hsl(180 100% 50% / 0.5)",
-              ]}}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              ClassCodex
-            </motion.span>
+            <span className="gradient-text caret">{text || "\u00A0"}</span>
+            <br />
+            <span className="text-foreground/90">skills that get you hired</span>
           </motion.h1>
-          
+
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="text-lg md:text-xl text-muted-foreground mt-6 max-w-2xl mx-auto leading-relaxed"
           >
-            Learn industry-relevant technologies like SQL, Python, Snowflake, and Power BI 
-            from expert instructors. Start your data career today.
+            Live, project-driven cohorts in SQL, Python, Snowflake, Power BI and Data Science —
+            taught by industry mentors with placement support.
           </motion.p>
-          
-          {/* CTA Buttons */}
+
+          {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
           >
-            <Button 
+            <Button
               size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 glow-button text-lg px-8 py-6"
-              onClick={() => scrollToSection("courses")}
+              onClick={() => scrollTo("courses")}
+              className="btn-gradient border-0 rounded-full h-14 px-8 text-base font-semibold"
             >
               Explore Courses
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-5 h-5 ml-1" />
             </Button>
             <Button
               size="lg"
-              className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/30 text-lg px-8 py-6"
+              variant="outline"
               asChild
+              className="rounded-full h-14 px-7 text-base font-semibold border-2 hover:bg-accent hover:text-accent-foreground"
             >
               <a
-                href="https://wa.me/919629997602?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex.%20Please%20share%20available%20slots."
+                href="https://wa.me/919629997602?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex."
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle className="w-5 h-5 mr-2" />
+                <MessageCircle className="w-5 h-5" />
                 Book Free Consultation
               </a>
             </Button>
           </motion.div>
-          
-          {/* Stats */}
+
+          {/* Trust row */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="grid grid-cols-3 gap-8 max-w-lg mx-auto"
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm text-muted-foreground"
           >
-            {[
-              { icon: BookOpen, value: "4+", label: "Courses" },
-              { icon: Users, value: "500+", label: "Students" },
-              { icon: Award, value: "95%", label: "Success Rate" },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center group"
-                whileHover={{ scale: 1.05 }}
-              >
-                <div className="flex items-center justify-center mb-2">
-                  <stat.icon className="w-5 h-5 text-primary group-hover:drop-shadow-[0_0_10px_hsl(180_100%_50%)] transition-all" />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
-                <div className="text-muted-foreground text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
+            <div className="flex items-center gap-2">
+              <div className="flex -space-x-2">
+                {[1,2,3,4].map(i => (
+                  <div key={i} className="w-7 h-7 rounded-full gradient-primary ring-2 ring-background flex items-center justify-center text-[10px] text-white font-bold">
+                    {String.fromCharCode(64+i)}
+                  </div>
+                ))}
+              </div>
+              <span><b className="text-foreground">500+</b> learners trained</span>
+            </div>
+            <div className="flex items-center gap-1">
+              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}
+              <span className="ml-1"><b className="text-foreground">4.9/5</b> avg rating</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-primary" />
+              <span><b className="text-foreground">78%</b> placement rate</span>
+            </div>
           </motion.div>
         </div>
-      </div>
 
-      {/* Tech Logos Marquee */}
-      <div className="relative z-10 mt-8">
-        <TechLogosMarquee />
+        {/* Tech marquee */}
+        <div className="mt-16">
+          <TechLogosMarquee />
+        </div>
       </div>
-      
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };

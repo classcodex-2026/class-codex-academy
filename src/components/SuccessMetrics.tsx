@@ -1,6 +1,6 @@
 import { TrendingUp, Users, Award, Briefcase, Target } from "lucide-react";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 
 interface MetricCardProps {
   icon: React.ReactNode;
@@ -13,14 +13,16 @@ interface MetricCardProps {
 }
 
 const MetricCard = ({ icon, value, suffix = "", prefix = "", label, description, delay }: MetricCardProps) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const duration = 2000;
+    if (!inView) return;
+    const duration = 1800;
     const steps = 60;
     const stepValue = value / steps;
     let current = 0;
-
     const timer = setInterval(() => {
       current += stepValue;
       if (current >= value) {
@@ -30,143 +32,74 @@ const MetricCard = ({ icon, value, suffix = "", prefix = "", label, description,
         setCount(Math.floor(current));
       }
     }, duration / steps);
-
     return () => clearInterval(timer);
-  }, [value]);
+  }, [inView, value]);
 
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      whileHover={{ scale: 1.02, y: -5 }}
-      className="group relative bg-card rounded-2xl p-6 card-shadow hover:card-shadow-hover transition-all duration-300 overflow-hidden border border-primary/10"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.55, delay }}
+      className="group relative bg-card rounded-2xl p-6 border border-border shadow-card hover-lift overflow-hidden"
     >
-      {/* Animated border glow */}
-      <motion.div
-        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-        style={{
-          background: "linear-gradient(135deg, hsl(180 100% 50% / 0.1), transparent, hsl(280 100% 65% / 0.1))",
-        }}
-      />
-      
+      <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full gradient-primary opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-2xl" />
+
       <div className="relative z-10">
-        <motion.div
-          className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center mb-4 border border-primary/30"
-          whileHover={{ 
-            boxShadow: "0 0 30px hsl(180 100% 50% / 0.4)",
-            borderColor: "hsl(180 100% 50% / 0.6)"
-          }}
-        >
+        <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4 shadow-soft text-white [&_svg]:text-white">
           {icon}
-        </motion.div>
-        
-        <div className="mb-2">
-          <span className="text-4xl font-bold text-foreground">
+        </div>
+
+        <div className="mb-1">
+          <span className="text-4xl font-extrabold gradient-text tracking-tight">
             {prefix}{count.toLocaleString()}{suffix}
           </span>
         </div>
-        
-        <h3 className="text-lg font-semibold text-foreground mb-1">{label}</h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
+
+        <h3 className="text-lg font-bold text-foreground mb-1">{label}</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
       </div>
-      
-      {/* Corner decoration */}
-      <div className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-primary/5 group-hover:bg-primary/10 transition-colors duration-300" />
     </motion.div>
   );
 };
 
 const SuccessMetrics = () => {
   const metrics = [
-    {
-      icon: <Users className="w-7 h-7 text-primary" />,
-      value: 500,
-      suffix: "+",
-      label: "Learners Trained",
-      description: "Since November 2024, empowering careers across India",
-    },
-    {
-      icon: <TrendingUp className="w-7 h-7 text-primary" />,
-      value: 35,
-      suffix: "%",
-      label: "Average Salary Hike",
-      description: "Reported by placed students",
-    },
-    {
-      icon: <Briefcase className="w-7 h-7 text-primary" />,
-      value: 78,
-      suffix: "%",
-      label: "Placement Rate",
-      description: "Students placed within 3 months",
-    },
-    {
-      icon: <Award className="w-7 h-7 text-primary" />,
-      value: 92,
-      suffix: "%",
-      label: "Course Completion",
-      description: "Students who complete their courses",
-    },
-    {
-      icon: <Target className="w-7 h-7 text-primary" />,
-      value: 12,
-      suffix: "+",
-      label: "Hiring Partners",
-      description: "Companies actively recruiting our students",
-    },
+    { icon: <Users className="w-6 h-6" />, value: 500, suffix: "+", label: "Learners Trained", description: "Empowering careers across India since Nov 2024." },
+    { icon: <TrendingUp className="w-6 h-6" />, value: 35, suffix: "%", label: "Average Salary Hike", description: "Reported by placed students." },
+    { icon: <Briefcase className="w-6 h-6" />, value: 78, suffix: "%", label: "Placement Rate", description: "Students placed within 3 months." },
+    { icon: <Award className="w-6 h-6" />, value: 92, suffix: "%", label: "Course Completion", description: "Students who finish their cohorts." },
+    { icon: <Target className="w-6 h-6" />, value: 12, suffix: "+", label: "Hiring Partners", description: "Companies actively recruiting our graduates." },
   ];
 
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
-      
+    <section className="py-24 relative overflow-hidden" style={{ background: "hsl(var(--surface-soft))" }}>
+      <div className="absolute inset-0 bg-grid opacity-60" />
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-14 max-w-2xl mx-auto"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+          <span className="inline-block bg-accent text-accent-foreground font-semibold text-xs uppercase tracking-[0.18em] px-3 py-1.5 rounded-full">
             Our Impact
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
-            Success Stories in{" "}
-            <span className="text-gradient">Numbers</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mt-4 mb-4 tracking-tight">
+            Success stories in <span className="gradient-text">numbers</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Since launching in November 2024, we've been transforming careers and empowering 
-            learners with industry-relevant skills. Here's our journey so far.
+          <p className="text-muted-foreground text-lg">
+            Since November 2024, we've helped hundreds of learners launch and accelerate their tech careers.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
           {metrics.map((metric, index) => (
-            <MetricCard key={index} {...metric} delay={index * 0.1} />
+            <MetricCard key={index} {...metric} delay={index * 0.08} />
           ))}
         </div>
-
-        {/* Timeline indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 flex items-center justify-center gap-4"
-        >
-          <div className="flex items-center gap-2 bg-card rounded-full px-4 py-2 border border-primary/20">
-            <motion.span
-              className="w-2 h-2 bg-primary rounded-full"
-              animate={{ scale: [1, 1.3, 1], opacity: [1, 0.7, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            />
-            <span className="text-sm text-muted-foreground">
-              <span className="font-semibold text-foreground">Nov 2024</span> - Present
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
