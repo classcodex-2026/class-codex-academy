@@ -1,23 +1,33 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { CalendarDays, Clock, User, MessageCircle, Sparkles } from "lucide-react";
 import { buildWhatsAppLink } from "@/components/CourseSyllabusPage";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Webinar {
+  id: string;
   title: string;
-  topic: string;
-  date: string;
-  time: string;
-  speaker: string;
-  description: string;
+  description: string | null;
+  scheduled_date: string | null;
+  scheduled_time: string | null;
+  banner_url: string | null;
+  recording_url: string | null;
+  status: string;
 }
 
-// Set this list as new webinars are scheduled.
-const upcoming: Webinar[] = [];
-
 const Webinar = () => {
+  const [upcoming, setUpcoming] = useState<Webinar[]>([]);
+  useEffect(() => {
+    supabase
+      .from("webinars")
+      .select("*")
+      .eq("status", "upcoming")
+      .order("scheduled_date", { ascending: true })
+      .then(({ data }) => setUpcoming((data ?? []) as Webinar[]));
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
