@@ -54,43 +54,39 @@ const Courses = () => {
   }, []);
 
   return (
-    <section id="courses" className="py-20 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 grid-pattern opacity-30" />
-      <motion.div
-        className="absolute top-1/2 left-0 w-96 h-96 rounded-full bg-primary/10 blur-[150px]"
-        animate={{ x: [-50, 50, -50], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ duration: 15, repeat: Infinity }}
-      />
+    <section id="courses" className="py-24 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-dots opacity-40" />
+      <div className="blob bg-primary/20 w-[500px] h-[500px] -top-32 -right-32 animate-blob" />
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
+          viewport={{ once: true, margin: "-80px" }}
+          className="text-center mb-14 max-w-2xl mx-auto"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+          <span className="inline-block bg-accent text-accent-foreground font-semibold text-xs uppercase tracking-[0.18em] px-3 py-1.5 rounded-full">
             Course Catalog
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mt-2 mb-4">
-            Industry-Ready <span className="text-gradient">Curriculum</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold text-foreground mt-4 mb-4 tracking-tight">
+            Industry-ready <span className="gradient-text">curriculum</span>
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore featured courses across Python, Data Engineering, Data Analytics and Data Science.
+          <p className="text-muted-foreground text-lg">
+            Live cohorts in Python, Data Engineering, Data Analytics and Data Science — built with hiring managers.
           </p>
         </motion.div>
 
         <div
           id="pricing"
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 max-w-7xl mx-auto"
         >
           {featured.map((course, index) => (
             <motion.div
               key={course.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               className="h-full"
             >
               <CourseCard
@@ -108,15 +104,14 @@ const Courses = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="text-center mt-14">
           <Button
             onClick={() => navigate("/courses")}
             size="lg"
-            variant="outline"
-            className="border-primary/30 text-primary hover:bg-primary/10 hover:border-primary"
+            className="btn-gradient border-0 rounded-full h-12 px-8 font-semibold"
           >
             View All Courses
-            <ArrowRight className="w-4 h-4 ml-1" />
+            <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
       </div>
