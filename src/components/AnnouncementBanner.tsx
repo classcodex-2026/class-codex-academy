@@ -6,7 +6,7 @@ const AnnouncementBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
   if (!isVisible) return null;
 
-  const waLink = "https://wa.me/919629997602";
+  const waLink = "https://web.whatsapp.com/send?phone=919629997602";
 
   return (
     <div className="relative z-[60] gradient-primary text-primary-foreground">

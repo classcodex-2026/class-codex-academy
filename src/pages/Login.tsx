@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hello, I'd like to access my ClassCodex student account.\n\nEmail: ${form.email}`;
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    const url = `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -112,7 +112,7 @@ const Login = () => {
               className="w-full border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 hover:border-emerald-500"
             >
               <a
-                href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(
+                href={`https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(
                   "Hi, I need help logging in to ClassCodex."
                 )}`}
                 target="_blank"

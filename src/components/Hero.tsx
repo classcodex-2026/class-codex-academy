@@ -134,7 +134,7 @@ const Hero = () => {
               className="rounded-full h-14 px-7 text-base font-semibold border-2 hover:bg-accent hover:text-accent-foreground"
             >
               <a
-                href="https://wa.me/919629997602?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex."
+                href="https://web.whatsapp.com/send?phone=919629997602&text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex."
                 target="_blank"
                 rel="noopener noreferrer"
               >

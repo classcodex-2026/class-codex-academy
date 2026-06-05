@@ -53,7 +53,7 @@ const WA_NUMBER = "919629997602";
 
 export const buildWhatsAppLink = (courseName: string) => {
   const message = `Hello I am interested in enrolling in ${courseName}`;
-  return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+  return `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(message)}`;
 };
 
 const statusStyles: Record<CourseSyllabusData["status"], string> = {

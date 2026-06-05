@@ -17,7 +17,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = `Hello, I'd like to get in touch.\n\nName: ${form.name}\nEmail: ${form.email}\nWhatsApp: ${form.whatsapp}\n\nMessage:\n${form.message}`;
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    const url = `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -110,7 +110,7 @@ const Contact = () => {
           {/* Info */}
           <aside className="space-y-4">
             <a
-              href={`https://wa.me/${WA_NUMBER}`}
+              href={`https://web.whatsapp.com/send?phone=${WA_NUMBER}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block bg-card border border-primary/20 hover:border-primary/40 rounded-2xl p-6 transition-colors"

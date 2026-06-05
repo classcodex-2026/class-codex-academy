@@ -129,7 +129,7 @@ const Navbar = () => {
               size="sm"
               className="ml-2 btn-gradient border-0 rounded-full px-5 h-9"
             >
-              <a href="https://wa.me/919629997602" target="_blank" rel="noopener noreferrer">
+              <a href="https://web.whatsapp.com/send?phone=919629997602" target="_blank" rel="noopener noreferrer">
                 Enroll Now
               </a>
             </Button>
@@ -185,7 +185,7 @@ const Navbar = () => {
                   </button>
                 ))}
                 <Button asChild className="mt-2 w-full btn-gradient border-0">
-                  <a href="https://wa.me/919629997602" target="_blank" rel="noopener noreferrer">
+                  <a href="https://web.whatsapp.com/send?phone=919629997602" target="_blank" rel="noopener noreferrer">
                     Enroll Now
                   </a>
                 </Button>

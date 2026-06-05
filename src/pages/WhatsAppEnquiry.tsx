@@ -33,7 +33,7 @@ const WhatsAppEnquiry = () => {
       (form.course ? `Course: ${form.course}\n` : "") +
       (form.message ? `\nMessage:\n${form.message}\n` : "") +
       `\nPlease share details about fees, batches and enrollment.`;
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
+    const url = `https://web.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
     toast.success("Opening WhatsApp…");
   };
