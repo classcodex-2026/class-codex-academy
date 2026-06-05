@@ -46,6 +46,15 @@ const App = () => (
           <Route path="/whatsapp-enquiry" element={<WhatsAppEnquiry />} />
           <Route path="/email-enquiry" element={<EmailEnquiry />} />
 
+          {/* Admin */}
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/courses" element={<AdminCourses />} />
+          <Route path="/admin/courses/:id" element={<AdminCourseEdit />} />
+          <Route path="/admin/webinars" element={<AdminWebinars />} />
+          <Route path="/admin/consultations" element={<AdminConsultations />} />
+          <Route path="/admin/settings" element={<AdminSettings />} />
+
           {/* Legacy redirects */}
           <Route path="/category/cyber-security" element={<Navigate to="/courses" replace />} />
           <Route path="/course/sql-analytics" element={<Navigate to="/course/sql" replace />} />
