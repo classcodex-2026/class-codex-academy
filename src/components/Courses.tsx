@@ -1,19 +1,57 @@
-import CourseCard from "./CourseCard";
+import { useEffect, useState } from "react";
+import CourseCard, { CourseStatus } from "./CourseCard";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { getAllCourses } from "@/data/courses";
 import { getCourseIcon } from "@/lib/courseIcons";
+import { supabase } from "@/integrations/supabase/client";
+
+const statusMap: Record<string, CourseStatus> = {
+  open: "Open for Enrollment",
+  coming_soon: "Coming Soon",
+  closed: "Coming Soon",
+};
+
+type Row = {
+  slug: string;
+  title: string;
+  description: string | null;
+  duration: string | null;
+  fee: number | null;
+  original_fee: number | null;
+  icon_name: string | null;
+  status: string;
+};
 
 const Courses = () => {
   const navigate = useNavigate();
-  // Show a curated subset on the homepage (one flagship per category) for a clean grid
   const featuredSlugs = ["python", "sql", "snowflake", "power-bi", "data-analytics-projects", "data-science"];
-  const all = getAllCourses();
-  const featured = featuredSlugs
-    .map((s) => all.find((c) => c.slug === s))
-    .filter(Boolean) as ReturnType<typeof getAllCourses>;
+  const [featured, setFeatured] = useState<(Row & { modulesCount: number })[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const { data: courses } = await supabase
+        .from("courses")
+        .select("slug,title,description,duration,fee,original_fee,icon_name,status")
+        .in("slug", featuredSlugs);
+      const { data: mods } = await supabase
+        .from("course_modules")
+        .select("course_id, courses!inner(slug)");
+      const counts: Record<string, number> = {};
+      (mods ?? []).forEach((m: any) => {
+        const slug = m.courses?.slug;
+        if (slug) counts[slug] = (counts[slug] ?? 0) + 1;
+      });
+      const byslug: Record<string, Row> = {};
+      (courses ?? []).forEach((c: any) => (byslug[c.slug] = c));
+      const ordered = featuredSlugs
+        .map((s) => byslug[s])
+        .filter(Boolean)
+        .map((c) => ({ ...c, modulesCount: counts[c.slug] ?? 0 }));
+      setFeatured(ordered);
+    })();
+  }, []);
 
   return (
     <section id="courses" className="py-20 bg-background relative overflow-hidden">
@@ -57,13 +95,13 @@ const Courses = () => {
             >
               <CourseCard
                 title={course.title}
-                description={course.description}
-                price={course.price ?? null}
-                originalPrice={course.originalPrice ?? null}
-                duration={course.duration}
+                description={course.description ?? ""}
+                price={course.fee}
+                originalPrice={course.original_fee}
+                duration={course.duration ?? ""}
                 modulesCount={course.modulesCount}
-                icon={getCourseIcon(course.iconName)}
-                status={course.status}
+                icon={getCourseIcon(course.icon_name ?? "BookOpen")}
+                status={statusMap[course.status] ?? "Open for Enrollment"}
                 syllabusPath={`/course/${course.slug}`}
               />
             </motion.div>
