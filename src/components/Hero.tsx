@@ -120,7 +120,7 @@ const Hero = () => {
               asChild
             >
               <a
-                href="https://wa.me/919442150416?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex.%20Please%20share%20available%20slots."
+                href="https://wa.me/919629997602?text=Hello%2C%20I%20would%20like%20to%20book%20a%20free%20consultation%20with%20ClassCodex.%20Please%20share%20available%20slots."
                 target="_blank"
                 rel="noopener noreferrer"
               >

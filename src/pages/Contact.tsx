@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { MessageCircle, Mail, Clock } from "lucide-react";
 
-const WA_NUMBER = "919442150416";
+const WA_NUMBER = "919629997602";
 const EMAIL = "info@classcodex.com";
 
 const Contact = () => {

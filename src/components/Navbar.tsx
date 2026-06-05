@@ -127,7 +127,7 @@ const Navbar = () => {
               className="ml-1 bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg shadow-primary/20"
             >
               <a
-                href="https://wa.me/919442150416"
+                href="https://wa.me/919629997602"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -193,7 +193,7 @@ const Navbar = () => {
                   className="mt-1 w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   <a
-                    href="https://wa.me/919442150416"
+                    href="https://wa.me/919629997602"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
