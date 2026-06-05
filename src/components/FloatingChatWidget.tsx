@@ -29,7 +29,7 @@ const FloatingChatWidget = () => {
                 <X className="w-4 h-4" />
               </button>
               <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                Namaste <span>🙏</span>
+                Welcome <span>🙏</span>
               </h3>
               <p className="text-sm text-foreground/80 mt-1">
                 Welcome to ClassCodex!
