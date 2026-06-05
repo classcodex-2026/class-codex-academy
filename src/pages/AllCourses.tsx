@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 const statusMap: Record<string, CourseStatus> = {
   open: "Open for Enrollment",
   coming_soon: "Coming Soon",
-  closed: "Closed",
+  closed: "Coming Soon",
 };
 
 type Row = {
