@@ -7,7 +7,7 @@ const AnnouncementBanner = () => {
 
   if (!isVisible) return null;
 
-  const waLink = "https://wa.me/919442150416";
+  const waLink = "https://wa.me/919629997602";
 
   return (
     <div className="bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 text-foreground py-2.5 relative overflow-hidden z-[60] border-b border-primary/20">

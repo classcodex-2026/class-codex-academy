@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
-const WA_NUMBER = "919442150416";
+const WA_NUMBER = "919629997602";
 
 const ROLES = ["Student", "Fresher", "Working Professional"];
 const INTERESTS = [

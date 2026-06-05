@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LogIn, MessageCircle, Mail, Lock } from "lucide-react";
 
-const WA_NUMBER = "919442150416";
+const WA_NUMBER = "919629997602";
 
 const Login = () => {
   const navigate = useNavigate();

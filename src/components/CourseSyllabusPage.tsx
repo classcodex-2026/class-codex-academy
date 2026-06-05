@@ -49,7 +49,7 @@ export interface CourseSyllabusData {
   icon?: React.ReactNode;
 }
 
-const WA_NUMBER = "919442150416";
+const WA_NUMBER = "919629997602";
 
 export const buildWhatsAppLink = (courseName: string) => {
   const message = `Hello I am interested in enrolling in ${courseName}`;
