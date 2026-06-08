@@ -35,6 +35,9 @@ import AdminCourseEdit from "./pages/admin/AdminCourseEdit";
 import AdminWebinars from "./pages/admin/AdminWebinars";
 import AdminConsultations from "./pages/admin/AdminConsultations";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminStudents from "./pages/admin/AdminStudents";
+import AdminEnrollments from "./pages/admin/AdminEnrollments";
+import AdminPayments from "./pages/admin/AdminPayments";
 
 const queryClient = new QueryClient();
 
