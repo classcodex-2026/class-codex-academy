@@ -47,11 +47,30 @@ export default function AdminEnrollments() {
   const load = async () => {
     const { data } = await supabase
       .from("enrollments")
-      .select(
-        "id, student_id, course_id, payment_status, enrolled_at, profiles(full_name, email), courses(title)",
-      )
+      .select("id, student_id, course_id, payment_status, enrolled_at")
       .order("enrolled_at", { ascending: false });
-    setRows((data ?? []) as Row[]);
+    const list = (data ?? []) as Omit<Row, "profiles" | "courses">[];
+    const studentIds = [...new Set(list.map((r) => r.student_id))];
+    const courseIds = [...new Set(list.map((r) => r.course_id))];
+    const [{ data: ps }, { data: cs }] = await Promise.all([
+      studentIds.length
+        ? supabase.from("profiles").select("id, full_name, email").in("id", studentIds)
+        : Promise.resolve({ data: [] as { id: string; full_name: string; email: string }[] }),
+      courseIds.length
+        ? supabase.from("courses").select("id, title").in("id", courseIds)
+        : Promise.resolve({ data: [] as { id: string; title: string }[] }),
+    ]);
+    const pMap = new Map((ps ?? []).map((p) => [p.id, p]));
+    const cMap = new Map((cs ?? []).map((c) => [c.id, c]));
+    setRows(
+      list.map((r) => ({
+        ...r,
+        profiles: pMap.get(r.student_id)
+          ? { full_name: pMap.get(r.student_id)!.full_name, email: pMap.get(r.student_id)!.email }
+          : null,
+        courses: cMap.get(r.course_id) ? { title: cMap.get(r.course_id)!.title } : null,
+      })),
+    );
   };
 
   useEffect(() => {
