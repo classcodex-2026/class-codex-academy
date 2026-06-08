@@ -35,6 +35,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -47,6 +48,12 @@ const Navbar = () => {
     navigate(path);
     setIsOpen(false);
     setMobileCoursesOpen(false);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/");
+    setIsOpen(false);
   };
 
   const isCoursesActive =
@@ -125,15 +132,55 @@ const Navbar = () => {
                 </button>
               );
             })}
-            <Button
-              asChild
-              size="sm"
-              className="ml-2 btn-gradient border-0 rounded-full px-5 h-9"
-            >
-              <a href="https://web.whatsapp.com/send?phone=919629997602" target="_blank" rel="noopener noreferrer">
-                Enroll Now
-              </a>
-            </Button>
+
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="ml-2 flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 hover:bg-primary/20 transition-colors">
+                    <div className="w-7 h-7 rounded-full gradient-primary flex items-center justify-center">
+                      <User className="w-4 h-4 text-primary-foreground" />
+                    </div>
+                    <span className="text-sm font-medium text-foreground max-w-[100px] truncate">
+                      {user.user_metadata?.full_name || user.email?.split("@")[0] || "Student"}
+                    </span>
+                    <ChevronDown className="w-3.5 h-3.5 text-foreground/60" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-card border-border shadow-elegant min-w-[200px]">
+                  <DropdownMenuItem onClick={() => go("/dashboard")} className="cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                    <LayoutDashboard className="w-4 h-4 mr-2" /> Dashboard
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => go("/my-courses")} className="cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                    <BookOpen className="w-4 h-4 mr-2" /> My Courses
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => go("/profile")} className="cursor-pointer focus:bg-accent focus:text-accent-foreground">
+                    <User className="w-4 h-4 mr-2" /> Profile
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer focus:bg-accent focus:text-accent-foreground text-red-500">
+                    <LogOut className="w-4 h-4 mr-2" /> Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <div className="flex items-center gap-2 ml-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => go("/login")}
+                  className="text-sm font-medium text-foreground/80 hover:text-primary hover:bg-primary/10"
+                >
+                  Login
+                </Button>
+                <Button
+                  size="sm"
+                  onClick={() => go("/signup")}
+                  className="btn-gradient border-0 rounded-full px-5 h-9 text-sm font-medium"
+                >
+                  Sign Up
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Mobile toggle */}
@@ -185,11 +232,33 @@ const Navbar = () => {
                     {item.label}
                   </button>
                 ))}
-                <Button asChild className="mt-2 w-full btn-gradient border-0">
-                  <a href="https://web.whatsapp.com/send?phone=919629997602" target="_blank" rel="noopener noreferrer">
-                    Enroll Now
-                  </a>
-                </Button>
+
+                {user ? (
+                  <>
+                    <div className="border-t border-border my-1" />
+                    <button onClick={() => go("/dashboard")} className="py-2 px-2 text-foreground/80 hover:text-primary font-medium text-left flex items-center gap-2">
+                      <LayoutDashboard className="w-4 h-4" /> Dashboard
+                    </button>
+                    <button onClick={() => go("/my-courses")} className="py-2 px-2 text-foreground/80 hover:text-primary font-medium text-left flex items-center gap-2">
+                      <BookOpen className="w-4 h-4" /> My Courses
+                    </button>
+                    <button onClick={() => go("/profile")} className="py-2 px-2 text-foreground/80 hover:text-primary font-medium text-left flex items-center gap-2">
+                      <User className="w-4 h-4" /> Profile
+                    </button>
+                    <button onClick={handleSignOut} className="py-2 px-2 text-red-500 hover:text-red-600 font-medium text-left flex items-center gap-2">
+                      <LogOut className="w-4 h-4" /> Logout
+                    </button>
+                  </>
+                ) : (
+                  <div className="flex flex-col gap-2 mt-2">
+                    <Button onClick={() => go("/login")} variant="outline" className="w-full rounded-full">
+                      Login
+                    </Button>
+                    <Button onClick={() => go("/signup")} className="w-full btn-gradient border-0 rounded-full">
+                      Sign Up
+                    </Button>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
