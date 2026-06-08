@@ -8,6 +8,9 @@ import {
   Settings,
   LogOut,
   Loader2,
+  Users,
+  GraduationCap,
+  CreditCard,
 } from "lucide-react";
 import { useAdmin } from "@/lib/admin/useAdmin";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,6 +20,9 @@ import { cn } from "@/lib/utils";
 const nav = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/admin/courses", label: "Courses", icon: BookOpen },
+  { to: "/admin/students", label: "Students", icon: Users },
+  { to: "/admin/enrollments", label: "Enrollments", icon: GraduationCap },
+  { to: "/admin/payments", label: "Payments", icon: CreditCard },
   { to: "/admin/webinars", label: "Webinars", icon: Video },
   { to: "/admin/consultations", label: "Consultations", icon: MessageSquare },
   { to: "/admin/settings", label: "Website Settings", icon: Settings },
