@@ -53,6 +53,56 @@ export type Database = {
         }
         Relationships: []
       }
+      course_lessons: {
+        Row: {
+          content_text: string | null
+          content_url: string | null
+          created_at: string
+          description: string | null
+          file_path: string | null
+          id: string
+          lesson_type: Database["public"]["Enums"]["lesson_type"]
+          module_id: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content_text?: string | null
+          content_url?: string | null
+          created_at?: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          lesson_type?: Database["public"]["Enums"]["lesson_type"]
+          module_id: string
+          sort_order?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content_text?: string | null
+          content_url?: string | null
+          created_at?: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          lesson_type?: Database["public"]["Enums"]["lesson_type"]
+          module_id?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_lessons_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "course_modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       course_modules: {
         Row: {
           course_id: string
@@ -216,6 +266,121 @@ export type Database = {
         }
         Relationships: []
       }
+      enrollments: {
+        Row: {
+          course_id: string
+          created_at: string
+          enrolled_at: string
+          id: string
+          payment_id: string | null
+          payment_status: Database["public"]["Enums"]["payment_status"]
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          enrolled_at?: string
+          id?: string
+          payment_id?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          enrolled_at?: string
+          id?: string
+          payment_id?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          course_id: string
+          created_at: string
+          currency: string
+          id: string
+          razorpay_order_id: string
+          razorpay_payment_id: string | null
+          razorpay_signature: string | null
+          status: Database["public"]["Enums"]["payment_status"]
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          course_id: string
+          created_at?: string
+          currency?: string
+          id?: string
+          razorpay_order_id: string
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          course_id?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          razorpay_order_id?: string
+          razorpay_payment_id?: string | null
+          razorpay_signature?: string | null
+          status?: Database["public"]["Enums"]["payment_status"]
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           about_us: string | null
@@ -333,6 +498,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_enrolled: {
+        Args: { _course_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin"
@@ -342,6 +511,8 @@ export type Database = {
         | "data_analytics"
         | "data_science"
       course_status: "open" | "coming_soon" | "closed"
+      lesson_type: "video" | "pdf" | "notes" | "link" | "assignment"
+      payment_status: "pending" | "completed" | "failed" | "refunded"
       video_source: "youtube" | "vimeo" | "upload"
       webinar_status: "upcoming" | "completed"
     }
@@ -479,6 +650,8 @@ export const Constants = {
         "data_science",
       ],
       course_status: ["open", "coming_soon", "closed"],
+      lesson_type: ["video", "pdf", "notes", "link", "assignment"],
+      payment_status: ["pending", "completed", "failed", "refunded"],
       video_source: ["youtube", "vimeo", "upload"],
       webinar_status: ["upcoming", "completed"],
     },
