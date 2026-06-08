@@ -2,30 +2,68 @@ import { useEffect, useState } from "react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
-import { BookOpen, MessageSquare, Video } from "lucide-react";
+import {
+  BookOpen,
+  MessageSquare,
+  Video,
+  Users,
+  GraduationCap,
+  IndianRupee,
+} from "lucide-react";
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({ courses: 0, webinars: 0, requests: 0 });
+  const [stats, setStats] = useState({
+    courses: 0,
+    webinars: 0,
+    requests: 0,
+    students: 0,
+    enrollments: 0,
+    revenue: 0,
+  });
   const [recent, setRecent] = useState<{ id: string; name: string; submitted_at: string }[]>([]);
 
   useEffect(() => {
     (async () => {
-      const [c, w, r, rr] = await Promise.all([
+      const [c, w, r, s, e, p, rr] = await Promise.all([
         supabase.from("courses").select("id", { count: "exact", head: true }),
         supabase.from("webinars").select("id", { count: "exact", head: true }),
         supabase.from("consultation_requests").select("id", { count: "exact", head: true }),
+        supabase.from("profiles").select("id", { count: "exact", head: true }),
+        supabase
+          .from("enrollments")
+          .select("id", { count: "exact", head: true })
+          .eq("payment_status", "completed"),
+        supabase.from("payments").select("amount").eq("status", "completed"),
         supabase
           .from("consultation_requests")
           .select("id, name, submitted_at")
           .order("submitted_at", { ascending: false })
           .limit(5),
       ]);
-      setStats({ courses: c.count ?? 0, webinars: w.count ?? 0, requests: r.count ?? 0 });
+      const revenue = (p.data ?? []).reduce(
+        (sum, row: { amount: number | string }) => sum + Number(row.amount ?? 0),
+        0,
+      );
+      setStats({
+        courses: c.count ?? 0,
+        webinars: w.count ?? 0,
+        requests: r.count ?? 0,
+        students: s.count ?? 0,
+        enrollments: e.count ?? 0,
+        revenue,
+      });
       setRecent(rr.data ?? []);
     })();
   }, []);
 
   const cards = [
+    { label: "Total Students", value: stats.students, icon: Users },
+    { label: "Total Enrollments", value: stats.enrollments, icon: GraduationCap },
+    {
+      label: "Total Revenue",
+      value: `₹${stats.revenue.toLocaleString("en-IN")}`,
+      icon: IndianRupee,
+    },
     { label: "Total Courses", value: stats.courses, icon: BookOpen },
     { label: "Total Webinars", value: stats.webinars, icon: Video },
     { label: "Consultation Requests", value: stats.requests, icon: MessageSquare },
