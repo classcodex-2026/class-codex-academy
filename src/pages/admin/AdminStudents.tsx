@@ -89,19 +89,30 @@ export default function AdminStudents() {
     const [{ data: en }, { data: py }] = await Promise.all([
       supabase
         .from("enrollments")
-        .select("id, course_id, payment_status, enrolled_at, courses(title)")
+        .select("id, course_id, payment_status, enrolled_at")
         .eq("student_id", p.id)
         .order("enrolled_at", { ascending: false }),
       supabase
         .from("payments")
         .select(
-          "id, amount, currency, status, razorpay_order_id, razorpay_payment_id, created_at, courses(title)",
+          "id, course_id, amount, currency, status, razorpay_order_id, razorpay_payment_id, created_at",
         )
         .eq("student_id", p.id)
         .order("created_at", { ascending: false }),
     ]);
-    setEnrollments((en ?? []) as Enrollment[]);
-    setPayments((py ?? []) as Payment[]);
+    const enList = (en ?? []) as Omit<Enrollment, "courses">[];
+    const pyList = (py ?? []) as (Omit<Payment, "courses"> & { course_id: string })[];
+    const courseIds = [...new Set([...enList.map((e) => e.course_id), ...pyList.map((p) => p.course_id)])];
+    const { data: cs } = courseIds.length
+      ? await supabase.from("courses").select("id, title").in("id", courseIds)
+      : { data: [] as { id: string; title: string }[] };
+    const cMap = new Map((cs ?? []).map((c) => [c.id, c.title]));
+    setEnrollments(
+      enList.map((e) => ({ ...e, courses: cMap.get(e.course_id) ? { title: cMap.get(e.course_id)! } : null })),
+    );
+    setPayments(
+      pyList.map((p) => ({ ...p, courses: cMap.get(p.course_id) ? { title: cMap.get(p.course_id)! } : null })),
+    );
   };
 
   const removeEnrollment = async (id: string) => {
