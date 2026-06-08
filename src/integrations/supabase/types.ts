@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      attendance: {
+        Row: {
+          batch_id: string
+          created_at: string
+          date: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          batch_id: string
+          created_at?: string
+          date: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          batch_id?: string
+          created_at?: string
+          date?: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       batches: {
         Row: {
           capacity: number | null
@@ -391,16 +432,113 @@ export type Database = {
           },
         ]
       }
+      installments: {
+        Row: {
+          amount: number
+          created_at: string
+          due_date: string
+          enrollment_id: string
+          id: string
+          notes: string | null
+          paid_amount: number
+          paid_at: string | null
+          sequence: number
+          status: Database["public"]["Enums"]["installment_status"]
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          due_date: string
+          enrollment_id: string
+          id?: string
+          notes?: string | null
+          paid_amount?: number
+          paid_at?: string | null
+          sequence: number
+          status?: Database["public"]["Enums"]["installment_status"]
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          due_date?: string
+          enrollment_id?: string
+          id?: string
+          notes?: string | null
+          paid_amount?: number
+          paid_at?: string | null
+          sequence?: number
+          status?: Database["public"]["Enums"]["installment_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "installments_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications_log: {
+        Row: {
+          error: string | null
+          id: string
+          payload: Json | null
+          recipient_email: string
+          recipient_id: string | null
+          sent_at: string
+          sent_by: string | null
+          status: string
+          subject: string | null
+          template: string
+        }
+        Insert: {
+          error?: string | null
+          id?: string
+          payload?: Json | null
+          recipient_email: string
+          recipient_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          template: string
+        }
+        Update: {
+          error?: string | null
+          id?: string
+          payload?: Json | null
+          recipient_email?: string
+          recipient_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          template?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
           course_id: string
           created_at: string
           currency: string
+          due_date: string | null
           id: string
-          razorpay_order_id: string
+          installment_id: string | null
+          notes: string | null
+          paid_at: string | null
+          payment_method: string | null
+          payment_type: string
+          razorpay_order_id: string | null
           razorpay_payment_id: string | null
           razorpay_signature: string | null
+          receipt_number: string | null
+          recorded_by: string | null
           status: Database["public"]["Enums"]["payment_status"]
           student_id: string
           updated_at: string
@@ -410,10 +548,18 @@ export type Database = {
           course_id: string
           created_at?: string
           currency?: string
+          due_date?: string | null
           id?: string
-          razorpay_order_id: string
+          installment_id?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          payment_type?: string
+          razorpay_order_id?: string | null
           razorpay_payment_id?: string | null
           razorpay_signature?: string | null
+          receipt_number?: string | null
+          recorded_by?: string | null
           status?: Database["public"]["Enums"]["payment_status"]
           student_id: string
           updated_at?: string
@@ -423,10 +569,18 @@ export type Database = {
           course_id?: string
           created_at?: string
           currency?: string
+          due_date?: string | null
           id?: string
-          razorpay_order_id?: string
+          installment_id?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          payment_type?: string
+          razorpay_order_id?: string | null
           razorpay_payment_id?: string | null
           razorpay_signature?: string | null
+          receipt_number?: string | null
+          recorded_by?: string | null
           status?: Database["public"]["Enums"]["payment_status"]
           student_id?: string
           updated_at?: string
@@ -473,6 +627,44 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      refunds: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          payment_id: string
+          processed_at: string
+          processed_by: string | null
+          reason: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          payment_id: string
+          processed_at?: string
+          processed_by?: string | null
+          reason?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          payment_id?: string
+          processed_at?: string
+          processed_by?: string | null
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       site_settings: {
         Row: {
