@@ -12,10 +12,22 @@ import Webinar from "./pages/Webinar";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import Consultation from "./pages/Consultation";
 import WhatsAppEnquiry from "./pages/WhatsAppEnquiry";
 import EmailEnquiry from "./pages/EmailEnquiry";
 import FloatingChatWidget from "./components/FloatingChatWidget";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./pages/student/Dashboard";
+import MyCourses from "./pages/student/MyCourses";
+import BrowseCourses from "./pages/student/BrowseCourses";
+import Profile from "./pages/student/Profile";
+import Checkout from "./pages/student/Checkout";
+import PaymentSuccess from "./pages/student/PaymentSuccess";
+import PaymentFailure from "./pages/student/PaymentFailure";
+import CourseLearn from "./pages/student/CourseLearn";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminCourses from "./pages/admin/AdminCourses";
@@ -40,11 +52,26 @@ const App = () => (
           <Route path="/webinar" element={<Webinar />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
           <Route path="/consultation" element={<Consultation />} />
           <Route path="/book-consultation" element={<Navigate to="/consultation" replace />} />
           <Route path="/whatsapp-enquiry" element={<WhatsAppEnquiry />} />
           <Route path="/email-enquiry" element={<EmailEnquiry />} />
+
+          {/* Auth */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+
+          {/* Student (protected) */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard/my-courses" element={<ProtectedRoute><MyCourses /></ProtectedRoute>} />
+          <Route path="/dashboard/browse" element={<ProtectedRoute><BrowseCourses /></ProtectedRoute>} />
+          <Route path="/dashboard/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/dashboard/learn/:courseId" element={<ProtectedRoute><CourseLearn /></ProtectedRoute>} />
+          <Route path="/checkout/:courseId" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+          <Route path="/payment-success" element={<ProtectedRoute><PaymentSuccess /></ProtectedRoute>} />
+          <Route path="/payment-failure" element={<ProtectedRoute><PaymentFailure /></ProtectedRoute>} />
 
           {/* Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -73,7 +100,6 @@ const App = () => (
           <Route path="/course/network-security" element={<Navigate to="/courses" replace />} />
           <Route path="/course/security-projects" element={<Navigate to="/courses" replace />} />
 
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <FloatingChatWidget />

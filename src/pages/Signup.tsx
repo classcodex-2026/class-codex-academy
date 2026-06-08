@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
+import { UserPlus, Mail, Lock, User, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { z } from "zod";
 
 const schema = z.object({
+  full_name: z.string().trim().min(2, "Enter your name").max(120),
   email: z.string().trim().email("Enter a valid email").max(255),
   password: z.string().min(6, "At least 6 characters").max(72),
 });
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
-  const location = useLocation() as any;
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ full_name: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -30,17 +30,21 @@ const Login = () => {
       return;
     }
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email: parsed.data.email,
       password: parsed.data.password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+        data: { full_name: parsed.data.full_name },
+      },
     });
     setLoading(false);
     if (error) {
-      toast({ title: "Login failed", description: error.message, variant: "destructive" });
+      toast({ title: "Signup failed", description: error.message, variant: "destructive" });
       return;
     }
-    toast({ title: "Welcome back!" });
-    navigate(location.state?.from ?? "/dashboard", { replace: true });
+    toast({ title: "Check your email", description: "We sent a verification link to confirm your account." });
+    navigate("/login");
   };
 
   return (
@@ -56,10 +60,20 @@ const Login = () => {
           >
             <div className="text-center space-y-2">
               <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto">
-                <LogIn className="w-7 h-7 text-primary" />
+                <UserPlus className="w-7 h-7 text-primary" />
               </div>
-              <h1 className="text-2xl font-bold">Student Login</h1>
-              <p className="text-sm text-muted-foreground">Access your courses and dashboard</p>
+              <h1 className="text-2xl font-bold">Create Student Account</h1>
+              <p className="text-sm text-muted-foreground">Start learning in-demand tech skills</p>
+            </div>
+
+            <div>
+              <Label htmlFor="full_name">Full name</Label>
+              <div className="relative mt-2">
+                <User className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                <Input id="full_name" required value={form.full_name}
+                  onChange={(e) => setForm({ ...form, full_name: e.target.value })}
+                  placeholder="Jane Doe" className="pl-9" />
+              </div>
             </div>
 
             <div>
@@ -73,26 +87,23 @@ const Login = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link to="/forgot-password" className="text-xs text-primary hover:underline">Forgot?</Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <div className="relative mt-2">
                 <Lock className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                 <Input id="password" type="password" required value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  placeholder="••••••••" className="pl-9" />
+                  placeholder="At least 6 characters" className="pl-9" />
               </div>
             </div>
 
             <Button type="submit" size="lg" className="w-full" disabled={loading}>
-              {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <LogIn className="w-4 h-4 mr-2" />}
-              Login
+              {loading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <UserPlus className="w-4 h-4 mr-2" />}
+              Create Account
             </Button>
 
             <p className="text-center text-sm text-muted-foreground">
-              New to ClassCodex?{" "}
-              <Link to="/signup" className="text-primary font-medium hover:underline">Create an account</Link>
+              Already have an account?{" "}
+              <Link to="/login" className="text-primary font-medium hover:underline">Login</Link>
             </p>
           </motion.form>
         </div>
@@ -102,4 +113,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
