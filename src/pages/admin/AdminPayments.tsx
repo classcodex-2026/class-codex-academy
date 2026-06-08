@@ -129,7 +129,7 @@ export default function AdminPayments() {
       course_id: form.course_id,
       amount: form.amount,
       currency: "INR",
-      status: form.status,
+      status: form.status as "completed" | "pending" | "partial" | "due" | "failed" | "refunded",
       payment_method: form.payment_method,
       payment_type: form.payment_type,
       due_date: form.due_date || null,
