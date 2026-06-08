@@ -11,6 +11,10 @@ import {
   Users,
   GraduationCap,
   CreditCard,
+  CalendarCheck,
+  BarChart3,
+  Bell,
+  Layers,
 } from "lucide-react";
 import { useAdmin } from "@/lib/admin/useAdmin";
 import { supabase } from "@/integrations/supabase/client";
@@ -19,13 +23,17 @@ import { cn } from "@/lib/utils";
 
 const nav = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/admin/courses", label: "Courses", icon: BookOpen },
   { to: "/admin/students", label: "Students", icon: Users },
+  { to: "/admin/courses", label: "Courses", icon: BookOpen },
+  { to: "/admin/batches", label: "Batches", icon: Layers },
   { to: "/admin/enrollments", label: "Enrollments", icon: GraduationCap },
   { to: "/admin/payments", label: "Payments", icon: CreditCard },
+  { to: "/admin/attendance", label: "Attendance", icon: CalendarCheck },
+  { to: "/admin/reports", label: "Reports", icon: BarChart3 },
+  { to: "/admin/notifications", label: "Notifications", icon: Bell },
   { to: "/admin/webinars", label: "Webinars", icon: Video },
   { to: "/admin/consultations", label: "Consultations", icon: MessageSquare },
-  { to: "/admin/settings", label: "Website Settings", icon: Settings },
+  { to: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -68,13 +76,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex w-full bg-background text-foreground">
-      <aside className="w-64 border-r border-border bg-card flex flex-col">
-        <div className="p-6 border-b border-border">
+      <aside className="w-60 border-r border-border bg-card flex flex-col">
+        <div className="p-5 border-b border-border">
           <Link to="/admin" className="font-bold text-lg tracking-tight">
             ClassCodex <span className="text-primary">Admin</span>
           </Link>
         </div>
-        <nav className="flex-1 p-3 space-y-1">
+        <nav className="flex-1 p-2 space-y-0.5 overflow-y-auto">
           {nav.map((item) => (
             <NavLink
               key={item.to}
@@ -94,14 +102,14 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             </NavLink>
           ))}
         </nav>
-        <div className="p-3 border-t border-border">
+        <div className="p-2 border-t border-border">
           <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
             <LogOut className="h-4 w-4 mr-2" /> Logout
           </Button>
         </div>
       </aside>
       <main className="flex-1 overflow-auto">
-        <div className="p-8 max-w-7xl mx-auto">{children}</div>
+        <div className="p-6 lg:p-8 max-w-7xl mx-auto">{children}</div>
       </main>
     </div>
   );

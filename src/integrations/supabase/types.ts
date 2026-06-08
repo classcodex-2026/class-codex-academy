@@ -14,6 +14,103 @@ export type Database = {
   }
   public: {
     Tables: {
+      attendance: {
+        Row: {
+          batch_id: string
+          created_at: string
+          date: string
+          id: string
+          notes: string | null
+          status: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          batch_id: string
+          created_at?: string
+          date: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          batch_id?: string
+          created_at?: string
+          date?: string
+          id?: string
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      batches: {
+        Row: {
+          capacity: number | null
+          course_id: string
+          created_at: string
+          end_date: string | null
+          id: string
+          name: string
+          notes: string | null
+          schedule: string | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["batch_status"]
+          trainer_email: string | null
+          trainer_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number | null
+          course_id: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          schedule?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["batch_status"]
+          trainer_email?: string | null
+          trainer_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number | null
+          course_id?: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          schedule?: string | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["batch_status"]
+          trainer_email?: string | null
+          trainer_name?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "batches_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       consultation_requests: {
         Row: {
           contacted: boolean
@@ -191,6 +288,7 @@ export type Database = {
       courses: {
         Row: {
           banner_url: string | null
+          capacity: number | null
           category: Database["public"]["Enums"]["course_category"]
           certification: string | null
           created_at: string
@@ -216,6 +314,7 @@ export type Database = {
         }
         Insert: {
           banner_url?: string | null
+          capacity?: number | null
           category: Database["public"]["Enums"]["course_category"]
           certification?: string | null
           created_at?: string
@@ -241,6 +340,7 @@ export type Database = {
         }
         Update: {
           banner_url?: string | null
+          capacity?: number | null
           category?: Database["public"]["Enums"]["course_category"]
           certification?: string | null
           created_at?: string
@@ -268,36 +368,61 @@ export type Database = {
       }
       enrollments: {
         Row: {
+          approval_status: Database["public"]["Enums"]["enrollment_approval"]
+          batch_id: string | null
           course_id: string
           created_at: string
+          discount_amount: number
           enrolled_at: string
           id: string
           payment_id: string | null
           payment_status: Database["public"]["Enums"]["payment_status"]
+          previous_batch_id: string | null
+          scholarship_note: string | null
           student_id: string
+          total_fee: number
           updated_at: string
         }
         Insert: {
+          approval_status?: Database["public"]["Enums"]["enrollment_approval"]
+          batch_id?: string | null
           course_id: string
           created_at?: string
+          discount_amount?: number
           enrolled_at?: string
           id?: string
           payment_id?: string | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
+          previous_batch_id?: string | null
+          scholarship_note?: string | null
           student_id: string
+          total_fee?: number
           updated_at?: string
         }
         Update: {
+          approval_status?: Database["public"]["Enums"]["enrollment_approval"]
+          batch_id?: string | null
           course_id?: string
           created_at?: string
+          discount_amount?: number
           enrolled_at?: string
           id?: string
           payment_id?: string | null
           payment_status?: Database["public"]["Enums"]["payment_status"]
+          previous_batch_id?: string | null
+          scholarship_note?: string | null
           student_id?: string
+          total_fee?: number
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "enrollments_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "enrollments_course_id_fkey"
             columns: ["course_id"]
@@ -307,16 +432,113 @@ export type Database = {
           },
         ]
       }
+      installments: {
+        Row: {
+          amount: number
+          created_at: string
+          due_date: string
+          enrollment_id: string
+          id: string
+          notes: string | null
+          paid_amount: number
+          paid_at: string | null
+          sequence: number
+          status: Database["public"]["Enums"]["installment_status"]
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          due_date: string
+          enrollment_id: string
+          id?: string
+          notes?: string | null
+          paid_amount?: number
+          paid_at?: string | null
+          sequence: number
+          status?: Database["public"]["Enums"]["installment_status"]
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          due_date?: string
+          enrollment_id?: string
+          id?: string
+          notes?: string | null
+          paid_amount?: number
+          paid_at?: string | null
+          sequence?: number
+          status?: Database["public"]["Enums"]["installment_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "installments_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications_log: {
+        Row: {
+          error: string | null
+          id: string
+          payload: Json | null
+          recipient_email: string
+          recipient_id: string | null
+          sent_at: string
+          sent_by: string | null
+          status: string
+          subject: string | null
+          template: string
+        }
+        Insert: {
+          error?: string | null
+          id?: string
+          payload?: Json | null
+          recipient_email: string
+          recipient_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          template: string
+        }
+        Update: {
+          error?: string | null
+          id?: string
+          payload?: Json | null
+          recipient_email?: string
+          recipient_id?: string | null
+          sent_at?: string
+          sent_by?: string | null
+          status?: string
+          subject?: string | null
+          template?: string
+        }
+        Relationships: []
+      }
       payments: {
         Row: {
           amount: number
           course_id: string
           created_at: string
           currency: string
+          due_date: string | null
           id: string
-          razorpay_order_id: string
+          installment_id: string | null
+          notes: string | null
+          paid_at: string | null
+          payment_method: string | null
+          payment_type: string
+          razorpay_order_id: string | null
           razorpay_payment_id: string | null
           razorpay_signature: string | null
+          receipt_number: string | null
+          recorded_by: string | null
           status: Database["public"]["Enums"]["payment_status"]
           student_id: string
           updated_at: string
@@ -326,10 +548,18 @@ export type Database = {
           course_id: string
           created_at?: string
           currency?: string
+          due_date?: string | null
           id?: string
-          razorpay_order_id: string
+          installment_id?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          payment_type?: string
+          razorpay_order_id?: string | null
           razorpay_payment_id?: string | null
           razorpay_signature?: string | null
+          receipt_number?: string | null
+          recorded_by?: string | null
           status?: Database["public"]["Enums"]["payment_status"]
           student_id: string
           updated_at?: string
@@ -339,10 +569,18 @@ export type Database = {
           course_id?: string
           created_at?: string
           currency?: string
+          due_date?: string | null
           id?: string
-          razorpay_order_id?: string
+          installment_id?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          payment_method?: string | null
+          payment_type?: string
+          razorpay_order_id?: string | null
           razorpay_payment_id?: string | null
           razorpay_signature?: string | null
+          receipt_number?: string | null
+          recorded_by?: string | null
           status?: Database["public"]["Enums"]["payment_status"]
           student_id?: string
           updated_at?: string
@@ -363,6 +601,9 @@ export type Database = {
           email: string
           full_name: string
           id: string
+          notes: string | null
+          phone: string | null
+          status: Database["public"]["Enums"]["student_status"]
           updated_at: string
         }
         Insert: {
@@ -370,6 +611,9 @@ export type Database = {
           email: string
           full_name?: string
           id: string
+          notes?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["student_status"]
           updated_at?: string
         }
         Update: {
@@ -377,9 +621,50 @@ export type Database = {
           email?: string
           full_name?: string
           id?: string
+          notes?: string | null
+          phone?: string | null
+          status?: Database["public"]["Enums"]["student_status"]
           updated_at?: string
         }
         Relationships: []
+      }
+      refunds: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          payment_id: string
+          processed_at: string
+          processed_by: string | null
+          reason: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          payment_id: string
+          processed_at?: string
+          processed_by?: string | null
+          reason?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          payment_id?: string
+          processed_at?: string
+          processed_by?: string | null
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_payment_id_fkey"
+            columns: ["payment_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       site_settings: {
         Row: {
@@ -505,14 +790,25 @@ export type Database = {
     }
     Enums: {
       app_role: "admin"
+      attendance_status: "present" | "absent" | "late" | "excused"
+      batch_status: "upcoming" | "running" | "completed" | "cancelled"
       course_category:
         | "python_programming"
         | "data_engineering"
         | "data_analytics"
         | "data_science"
       course_status: "open" | "coming_soon" | "closed"
+      enrollment_approval: "pending" | "approved" | "rejected"
+      installment_status: "pending" | "paid" | "overdue" | "waived"
       lesson_type: "video" | "pdf" | "notes" | "link" | "assignment"
-      payment_status: "pending" | "completed" | "failed" | "refunded"
+      payment_status:
+        | "pending"
+        | "completed"
+        | "failed"
+        | "refunded"
+        | "partial"
+        | "due"
+      student_status: "active" | "inactive" | "graduated" | "dropped"
       video_source: "youtube" | "vimeo" | "upload"
       webinar_status: "upcoming" | "completed"
     }
@@ -643,6 +939,8 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin"],
+      attendance_status: ["present", "absent", "late", "excused"],
+      batch_status: ["upcoming", "running", "completed", "cancelled"],
       course_category: [
         "python_programming",
         "data_engineering",
@@ -650,8 +948,18 @@ export const Constants = {
         "data_science",
       ],
       course_status: ["open", "coming_soon", "closed"],
+      enrollment_approval: ["pending", "approved", "rejected"],
+      installment_status: ["pending", "paid", "overdue", "waived"],
       lesson_type: ["video", "pdf", "notes", "link", "assignment"],
-      payment_status: ["pending", "completed", "failed", "refunded"],
+      payment_status: [
+        "pending",
+        "completed",
+        "failed",
+        "refunded",
+        "partial",
+        "due",
+      ],
+      student_status: ["active", "inactive", "graduated", "dropped"],
       video_source: ["youtube", "vimeo", "upload"],
       webinar_status: ["upcoming", "completed"],
     },
