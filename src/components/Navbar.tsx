@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
+import { GraduationCap, Menu, X, ChevronDown, User, LogOut, BookOpen, LayoutDashboard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "@/lib/auth/AuthProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
